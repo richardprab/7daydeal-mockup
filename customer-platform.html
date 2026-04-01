@@ -11,7 +11,7 @@
     :root {
       --black: #1d1d1f; --gray-dark: #424245; --gray: #86868b; --gray-light: #d2d2d7;
       --gray-bg: #f5f5f7; --white: #fff; --red: #C41E24; --red-dark: #9B1B20;
-      --green: #30D158; --orange: #FF9F0A;
+      --green: #1B8C5A; --yellow: #D4A017;
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', -apple-system, sans-serif; color: var(--black); background: var(--white); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
@@ -29,8 +29,8 @@
 
     /* Hero */
     .page-hero { padding: 10rem 2rem 5rem; text-align: center; background: var(--black); color: white; position: relative; overflow: hidden; }
-    .page-hero::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(196,30,36,0.15) 0%, transparent 60%); border-radius: 50%; }
-    .page-hero-eyebrow { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--red); margin-bottom: 1.25rem; opacity: 0; animation: fadeUp 0.6s 0.1s ease forwards; }
+    .page-hero::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(212,160,23,0.15) 0%, rgba(27,140,90,0.08) 40%, transparent 60%); border-radius: 50%; }
+    .page-hero-eyebrow { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--yellow); margin-bottom: 1.25rem; opacity: 0; animation: fadeUp 0.6s 0.1s ease forwards; }
     .page-hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; letter-spacing: -2px; line-height: 1.08; max-width: 700px; margin: 0 auto; opacity: 0; animation: fadeUp 0.6s 0.2s ease forwards; }
     .page-hero p { font-size: 1.15rem; color: rgba(255,255,255,0.5); max-width: 520px; margin: 1.5rem auto 0; line-height: 1.6; opacity: 0; animation: fadeUp 0.6s 0.35s ease forwards; }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
@@ -68,7 +68,7 @@
     .compat-item:hover { background: rgba(0,0,0,0.03); }
     .compat-item.selected { background: rgba(196,30,36,0.06); font-weight: 600; }
     .ci-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
-    .ci-dot.warn { background: var(--orange); }
+    .ci-dot.warn { background: var(--yellow); }
     .ci-dot.bad { background: var(--red); }
 
     /* Viewport */
@@ -78,8 +78,8 @@
     .camera-display.rotated { transform: rotateY(15deg) rotateX(-5deg); }
     .compat-badge { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 980px; font-size: 0.78rem; font-weight: 600; margin-top: 20px; transition: all 0.4s; }
     .compat-badge i { width: 15px; height: 15px; }
-    .compat-badge.ok { background: rgba(48,209,88,0.12); color: #248A3D; }
-    .compat-badge.warn { background: rgba(255,159,10,0.12); color: #B25000; }
+    .compat-badge.ok { background: rgba(27,140,90,0.12); color: #157A48; }
+    .compat-badge.warn { background: rgba(212,160,23,0.12); color: #9A7209; }
     .compat-badge.bad { background: rgba(196,30,36,0.12); color: var(--red); }
     .vp-controls { position: absolute; bottom: 20px; display: flex; gap: 8px; }
     .vp-btn { width: 40px; height: 40px; border-radius: 12px; background: white; border: 0.5px solid rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
@@ -88,8 +88,8 @@
     .vp-btn.active { background: var(--red); border-color: var(--red); color: white; }
     .acc-label { position: absolute; font-size: 0.65rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); box-shadow: 0 2px 8px rgba(0,0,0,0.08); opacity: 0; transform: translateY(5px); transition: all 0.3s; pointer-events: none; white-space: nowrap; }
     .acc-label.visible { opacity: 1; transform: translateY(0); }
-    .acc-label.lens { top: 55%; right: 12%; color: #007AFF; }
-    .acc-label.filter { top: 30%; right: 8%; color: var(--green); }
+    .acc-label.lens { top: 55%; right: 12%; color: var(--green); }
+    .acc-label.filter { top: 30%; right: 8%; color: var(--yellow); }
     .acc-label.body { top: 15%; left: 15%; color: var(--gray-dark); }
 
     /* Config Panel */
@@ -101,12 +101,12 @@
     .matrix-row:not(:last-child) { border-bottom: 0.5px solid rgba(0,0,0,0.06); }
     .mr-status { font-weight: 600; display: flex; align-items: center; gap: 4px; }
     .mr-status i { width: 13px; height: 13px; }
-    .mr-status.ok { color: #248A3D; }
-    .mr-status.warn { color: #B25000; }
+    .mr-status.ok { color: #157A48; }
+    .mr-status.warn { color: #9A7209; }
     .prices { margin-bottom: 20px; }
     .prices-title { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gray); margin-bottom: 10px; }
     .price-line { display: flex; justify-content: space-between; padding: 5px 0; font-size: 0.82rem; }
-    .price-line.discount .val { color: var(--green); font-weight: 600; }
+    .price-line.discount .val { color: #157A48; font-weight: 600; }
     .price-line.total { border-top: 1.5px solid var(--black); margin-top: 8px; padding-top: 10px; font-weight: 700; font-size: 0.95rem; }
     .price-line .struck { text-decoration: line-through; color: var(--gray); margin-right: 6px; font-weight: 400; }
     .actions { margin-top: auto; display: flex; flex-direction: column; gap: 8px; }
@@ -130,6 +130,10 @@
     .feat-icon i { width: 22px; height: 22px; }
     .feat-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.2px; }
     .feat-card p { font-size: 0.82rem; color: var(--gray); line-height: 1.6; }
+    .feat-grid .feat-card:nth-child(2) .feat-icon { background: rgba(212,160,23,0.06); color: var(--yellow); }
+    .feat-grid .feat-card:nth-child(3) .feat-icon { background: rgba(27,140,90,0.06); color: var(--green); }
+    .feat-grid .feat-card:nth-child(5) .feat-icon { background: rgba(212,160,23,0.06); color: var(--yellow); }
+    .feat-grid .feat-card:nth-child(6) .feat-icon { background: rgba(27,140,90,0.06); color: var(--green); }
 
     /* Feasibility */
     .feasibility { padding: 6rem 2rem; }
@@ -269,7 +273,7 @@
           <circle cx="170" cy="135" r="14" fill="#1a1a3a" opacity="0.6"/>
           <ellipse cx="167" cy="131" rx="5" ry="4" fill="rgba(255,255,255,0.08)"/>
           <text x="170" y="195" text-anchor="middle" font-size="9" fill="#555" font-family="Inter">X-T5</text>
-          <text x="170" y="225" text-anchor="middle" font-size="11" font-weight="600" fill="#007AFF" font-family="Inter" id="lensText">+ XF 16-80mm f/4 OIS</text>
+          <text x="170" y="225" text-anchor="middle" font-size="11" font-weight="600" fill="#1B8C5A" font-family="Inter" id="lensText">+ XF 16-80mm f/4 OIS</text>
           <circle cx="170" cy="135" r="58" fill="none" stroke="transparent" stroke-width="2" stroke-dasharray="4,4" id="filterRing"/>
         </svg>
         <div class="compat-badge ok" id="compatBadge">
@@ -384,7 +388,7 @@
     if (iconEl) { iconEl.setAttribute('data-lucide', iconMap[lens.status]); lucide.createIcons({ nodes: [iconEl] }); }
 
     const fr = document.getElementById('filterRing');
-    fr.setAttribute('stroke', lens.status === 'ok' ? '#30D158' : lens.status === 'warn' ? '#FF9F0A' : '#C41E24');
+    fr.setAttribute('stroke', lens.status === 'ok' ? '#1B8C5A' : lens.status === 'warn' ? '#D4A017' : '#C41E24');
     document.getElementById('lensOuter').setAttribute('stroke', lens.status === 'bad' ? '#C41E24' : '#555');
 
     const m = document.getElementById('matMount');

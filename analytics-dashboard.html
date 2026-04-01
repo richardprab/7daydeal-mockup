@@ -11,7 +11,7 @@
     :root {
       --black: #1d1d1f; --gray-dark: #424245; --gray: #86868b; --gray-light: #d2d2d7;
       --gray-bg: #f5f5f7; --white: #fff; --red: #C41E24; --red-dark: #9B1B20;
-      --green: #30D158; --orange: #FF9F0A; --blue: #007AFF;
+      --green: #1B8C5A; --yellow: #D4A017;
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', -apple-system, sans-serif; color: var(--black); background: var(--white); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
@@ -29,8 +29,8 @@
 
     /* Hero */
     .page-hero { padding: 10rem 2rem 5rem; text-align: center; background: var(--gray-bg); position: relative; overflow: hidden; }
-    .page-hero::after { content: ''; position: absolute; bottom: -200px; left: 50%; transform: translateX(-50%); width: 800px; height: 400px; background: radial-gradient(ellipse, rgba(196,30,36,0.06) 0%, transparent 60%); }
-    .page-hero-eyebrow { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--red); margin-bottom: 1.25rem; opacity: 0; animation: fadeUp 0.6s 0.1s ease forwards; }
+    .page-hero::after { content: ''; position: absolute; bottom: -200px; left: 50%; transform: translateX(-50%); width: 800px; height: 400px; background: radial-gradient(ellipse, rgba(27,140,90,0.06) 0%, transparent 60%); }
+    .page-hero-eyebrow { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--green); margin-bottom: 1.25rem; opacity: 0; animation: fadeUp 0.6s 0.1s ease forwards; }
     .page-hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; letter-spacing: -2px; line-height: 1.08; max-width: 700px; margin: 0 auto; opacity: 0; animation: fadeUp 0.6s 0.2s ease forwards; }
     .page-hero p { font-size: 1.15rem; color: var(--gray); max-width: 520px; margin: 1.5rem auto 0; line-height: 1.6; opacity: 0; animation: fadeUp 0.6s 0.35s ease forwards; }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
@@ -82,14 +82,14 @@
     .kpi-val { font-size: 1.6rem; font-weight: 800; letter-spacing: -1px; }
     .kpi-change { font-size: 0.7rem; font-weight: 600; margin-top: 2px; display: flex; align-items: center; gap: 3px; }
     .kpi-change i { width: 12px; height: 12px; }
-    .kpi-change.up { color: #248A3D; }
+    .kpi-change.up { color: #157A48; }
     .kpi-change.down { color: var(--red); }
 
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .card { background: white; border-radius: 14px; padding: 16px; border: 0.5px solid rgba(0,0,0,0.04); }
     .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .card-title { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray); }
-    .badge-live { font-size: 0.65rem; font-weight: 600; padding: 3px 8px; border-radius: 100px; background: rgba(48,209,88,0.1); color: #248A3D; display: inline-flex; align-items: center; gap: 4px; }
+    .badge-live { font-size: 0.65rem; font-weight: 600; padding: 3px 8px; border-radius: 100px; background: rgba(27,140,90,0.1); color: #157A48; display: inline-flex; align-items: center; gap: 4px; }
     .badge-live i { width: 8px; height: 8px; }
 
     /* Tables */
@@ -98,13 +98,13 @@
     .tbl th { text-align: left; padding: 6px 0; font-size: 0.65rem; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 0.5px solid rgba(0,0,0,0.06); }
     .tbl td { padding: 8px 0; border-bottom: 0.5px solid rgba(0,0,0,0.03); }
     .tbl .bold { font-weight: 600; }
-    .tbl .green { color: #248A3D; font-weight: 600; display: flex; align-items: center; gap: 2px; }
+    .tbl .green { color: #157A48; font-weight: 600; display: flex; align-items: center; gap: 2px; }
     .tbl .green i { width: 12px; height: 12px; }
     .chip { display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 100px; font-size: 0.68rem; font-weight: 600; }
     .chip i { width: 11px; height: 11px; }
     .chip-red { background: rgba(196,30,36,0.08); color: var(--red); }
-    .chip-orange { background: rgba(255,159,10,0.1); color: #B25000; }
-    .chip-green { background: rgba(48,209,88,0.1); color: #248A3D; }
+    .chip-orange { background: rgba(212,160,23,0.1); color: #9A7209; }
+    .chip-green { background: rgba(27,140,90,0.1); color: #157A48; }
     .chart-wrap { height: 170px; position: relative; margin-top: 8px; }
     .chart-wrap svg { width: 100%; height: 100%; }
 
@@ -115,7 +115,7 @@
     .gauge-score { text-align: center; margin-top: 4px; }
     .gauge-score .num { font-size: 2.5rem; font-weight: 900; letter-spacing: -2px; }
     .gauge-score .num.high { color: var(--red); }
-    .gauge-score .num.med { color: var(--orange); }
+    .gauge-score .num.med { color: var(--yellow); }
     .gauge-score .num.low { color: var(--green); }
     .gauge-score .sub { font-size: 0.7rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; }
     .risk-factors { display: flex; gap: 8px; margin-top: 12px; width: 100%; }
@@ -131,8 +131,8 @@
     .rp-item.active { background: rgba(196,30,36,0.06); }
     .rp-score { font-weight: 700; padding: 3px 10px; border-radius: 100px; font-size: 0.75rem; }
     .rp-score.high { background: rgba(196,30,36,0.1); color: var(--red); }
-    .rp-score.med { background: rgba(255,159,10,0.1); color: #B25000; }
-    .rp-score.low { background: rgba(48,209,88,0.1); color: #248A3D; }
+    .rp-score.med { background: rgba(212,160,23,0.1); color: #9A7209; }
+    .rp-score.low { background: rgba(27,140,90,0.1); color: #157A48; }
 
     .placement-card { background: white; border-radius: 14px; padding: 16px; border: 0.5px solid rgba(0,0,0,0.04); margin-top: 10px; }
     .shelf-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 60px); gap: 6px; margin-top: 10px; }
@@ -143,7 +143,7 @@
     .health-bar { width: 50px; height: 5px; background: #E5E7EB; border-radius: 3px; display: inline-block; vertical-align: middle; margin-right: 6px; overflow: hidden; }
     .hb-fill { height: 100%; border-radius: 3px; }
     .hb-fill.good { background: var(--green); }
-    .hb-fill.ok { background: var(--orange); }
+    .hb-fill.ok { background: var(--yellow); }
     .hb-fill.bad { background: var(--red); }
     .supplier-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
 
@@ -159,6 +159,8 @@
     .feat-icon i { width: 22px; height: 22px; }
     .feat-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
     .feat-card p { font-size: 0.82rem; color: var(--gray); line-height: 1.6; }
+    .feat-grid .feat-card:nth-child(2) .feat-icon { background: rgba(212,160,23,0.06); color: var(--yellow); }
+    .feat-grid .feat-card:nth-child(3) .feat-icon { background: rgba(27,140,90,0.06); color: var(--green); }
 
     /* Feasibility */
     .feasibility { padding: 6rem 2rem; background: var(--gray-bg); }
@@ -359,9 +361,9 @@
               <div class="gauge-wrap">
                 <svg class="gauge-svg" viewBox="0 0 180 100">
                   <path d="M 15 90 A 70 70 0 0 1 165 90" fill="none" stroke="#E5E7EB" stroke-width="14" stroke-linecap="round"/>
-                  <path d="M 15 90 A 70 70 0 0 1 50 30" fill="none" stroke="#30D158" stroke-width="14" stroke-linecap="round"/>
-                  <path d="M 50 30 A 70 70 0 0 1 90 15" fill="none" stroke="#FF9F0A" stroke-width="14" stroke-linecap="round"/>
-                  <path d="M 90 15 A 70 70 0 0 1 130 30" fill="none" stroke="#FF6723" stroke-width="14" stroke-linecap="round"/>
+                  <path d="M 15 90 A 70 70 0 0 1 50 30" fill="none" stroke="#1B8C5A" stroke-width="14" stroke-linecap="round"/>
+                  <path d="M 50 30 A 70 70 0 0 1 90 15" fill="none" stroke="#D4A017" stroke-width="14" stroke-linecap="round"/>
+                  <path d="M 90 15 A 70 70 0 0 1 130 30" fill="none" stroke="#B87A12" stroke-width="14" stroke-linecap="round"/>
                   <path d="M 130 30 A 70 70 0 0 1 165 90" fill="none" stroke="#DC2626" stroke-width="14" stroke-linecap="round"/>
                   <line x1="90" y1="90" x2="132" y2="38" stroke="var(--black)" stroke-width="3" stroke-linecap="round" id="needle"/>
                   <circle cx="90" cy="90" r="5" fill="var(--black)"/>
@@ -494,7 +496,7 @@
       document.getElementById('riskNum').textContent = d.risk;
       document.getElementById('riskNum').className = 'num ' + d.class;
       document.getElementById('riskLevel').textContent = d.level;
-      document.getElementById('riskLevel').style.color = d.class === 'high' ? 'var(--red)' : d.class === 'med' ? 'var(--orange)' : 'var(--green)';
+      document.getElementById('riskLevel').style.color = d.class === 'high' ? 'var(--red)' : d.class === 'med' ? 'var(--yellow)' : 'var(--green)';
       document.getElementById('rfFail').textContent = d.fail;
       document.getElementById('rfCost').textContent = d.cost;
       document.getElementById('rfSupp').textContent = d.supp;
@@ -510,7 +512,7 @@
   const supplierData = {
     hk: { line: '0,100 50,95 100,85 150,70 200,65 250,55 300,50', color: 'var(--green)', actionIcon: 'arrow-up', action: 'Increase Orders', actionClass: 'chip-green', text: 'HK Import Co. shows consistently declining defect rates and best-in-class RMA performance. Recommend increasing allocation by 15-20% for next quarter.' },
     jp: { line: '0,90 50,88 100,82 150,78 200,75 250,72 300,68', color: 'var(--green)', actionIcon: 'arrow-up', action: 'Increase Orders', actionClass: 'chip-green', text: 'JP Direct Supply maintains stable quality metrics with reliable lead times. Good candidate for expanding product range allocation.' },
-    sz: { line: '0,60 50,65 100,62 150,68 200,72 250,70 300,75', color: 'var(--orange)', actionIcon: 'alert-triangle', action: 'Review Terms', actionClass: 'chip-orange', text: 'SZ Electronics shows rising defect trends over the past 3 months. Recommend quality audit and renegotiating warranty terms before next order.' },
+    sz: { line: '0,60 50,65 100,62 150,68 200,72 250,70 300,75', color: 'var(--yellow)', actionIcon: 'alert-triangle', action: 'Review Terms', actionClass: 'chip-orange', text: 'SZ Electronics shows rising defect trends over the past 3 months. Recommend quality audit and renegotiating warranty terms before next order.' },
     bj: { line: '0,50 50,55 100,65 150,70 200,80 250,88 300,95', color: 'var(--red)', actionIcon: 'arrow-down', action: 'Reduce / Replace', actionClass: 'chip-red', text: 'BJ Wholesale has deteriorating quality across all metrics. High RMA rate is eroding margins. Recommend phasing out and sourcing alternatives.' },
   };
   document.querySelectorAll('.supplier-row').forEach(row => {
