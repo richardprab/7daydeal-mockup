@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7DayDeal - Digital Transformation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --black: #1d1d1f;
+      --gray-dark: #424245;
+      --gray: #86868b;
+      --gray-light: #d2d2d7;
+      --gray-bg: #f5f5f7;
+      --white: #fff;
+      --red: #C41E24;
+      --red-glow: rgba(196, 30, 36, 0.15);
+      --gold: #E8C547;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--black); background: var(--white);
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+
+    /* Nav */
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(255,255,255,0.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 0.5px solid rgba(0,0,0,0.08); }
+    .nav-inner { max-width: 1024px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 52px; }
+    .nav-logo { font-weight: 800; font-size: 1.15rem; letter-spacing: -0.5px; text-decoration: none; color: var(--black); }
+    .nav-logo .red { color: var(--red); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--gray-dark); font-size: 0.75rem; font-weight: 400; transition: color 0.3s; display: inline-flex; align-items: center; gap: 0.4rem; }
+    .nav-links a:hover { color: var(--red); }
+    .nav-links i { width: 14px; height: 14px; }
+
+    /* Hero */
+    .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 6rem 2rem 4rem; position: relative; overflow: hidden; }
+    .hero-overline { font-size: 0.85rem; font-weight: 500; color: var(--red); letter-spacing: 0.02em; margin-bottom: 1.25rem; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.2s ease forwards; }
+    .hero h1 { font-size: clamp(3rem, 8vw, 5.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -3px; max-width: 900px; opacity: 0; transform: translateY(30px); animation: fadeUp 0.8s 0.4s ease forwards; }
+    .hero h1 .gradient { background: linear-gradient(135deg, var(--red) 0%, #FF6B6B 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-sub { font-size: 1.3rem; font-weight: 400; color: var(--gray); max-width: 580px; line-height: 1.5; margin-top: 1.5rem; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.6s ease forwards; }
+    .hero-cta { display: flex; gap: 1rem; margin-top: 2.5rem; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.8s ease forwards; }
+    .btn { padding: 0.85rem 2rem; border-radius: 980px; font-size: 0.95rem; font-weight: 500; text-decoration: none; transition: all 0.3s cubic-bezier(0.25,0.1,0.25,1); display: inline-flex; align-items: center; gap: 0.5rem; }
+    .btn i { width: 16px; height: 16px; }
+    .btn-fill { background: var(--red); color: white; }
+    .btn-fill:hover { background: #A51A1F; transform: scale(1.02); }
+    .btn-ghost { background: transparent; color: var(--red); }
+    .btn-ghost:hover { background: var(--red-glow); }
+
+    /* Scroll */
+    .scroll-hint { position: absolute; bottom: 2.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; opacity: 0; animation: fadeUp 0.8s 1.2s ease forwards; }
+    .scroll-hint span { font-size: 0.7rem; color: var(--gray); text-transform: uppercase; letter-spacing: 2px; }
+    .scroll-line { width: 1px; height: 40px; background: var(--gray-light); position: relative; overflow: hidden; }
+    .scroll-line::after { content: ''; position: absolute; top: -100%; width: 100%; height: 100%; background: var(--red); animation: scrollDown 2s ease infinite; }
+    @keyframes scrollDown { 0% { top: -100%; } 100% { top: 100%; } }
+
+    /* Context */
+    .context { padding: 8rem 2rem; background: var(--gray-bg); }
+    .context-inner { max-width: 1024px; margin: 0 auto; text-align: center; }
+    .context-label { font-size: 0.75rem; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1.5rem; }
+    .context h2 { font-size: 3rem; font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 2rem; }
+    .context-desc { font-size: 1.15rem; color: var(--gray); line-height: 1.7; max-width: 680px; margin: 0 auto 4rem; }
+    .problems-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; text-align: left; }
+    .problem-card { background: var(--white); border-radius: 20px; padding: 2rem; transition: transform 0.4s cubic-bezier(0.25,0.1,0.25,1); }
+    .problem-card:hover { transform: translateY(-4px); }
+    .problem-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(196,30,36,0.06); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; color: var(--red); }
+    .problem-icon i { width: 20px; height: 20px; }
+    .problem-number { font-size: 0.7rem; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.75rem; }
+    .problem-card h3 { font-size: 1.1rem; font-weight: 700; line-height: 1.3; margin-bottom: 0.75rem; letter-spacing: -0.3px; }
+    .problem-card p { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+
+    /* Solutions */
+    .solutions { padding: 8rem 2rem 0; }
+    .solutions-inner { max-width: 1024px; margin: 0 auto; text-align: center; }
+    .solutions h2 { font-size: 3.5rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 1rem; }
+    .solutions-sub { font-size: 1.15rem; color: var(--gray); max-width: 500px; margin: 0 auto; }
+
+    /* Showcase */
+    .showcase { padding: 4rem 2rem 8rem; }
+    .showcase-inner { max-width: 1024px; margin: 0 auto; display: flex; flex-direction: column; gap: 2rem; }
+    .showcase-card { border-radius: 28px; overflow: hidden; position: relative; min-height: 620px; display: flex; flex-direction: column; justify-content: flex-end; padding: 3.5rem; text-decoration: none; color: white; transition: transform 0.5s cubic-bezier(0.25,0.1,0.25,1); cursor: pointer; }
+    .showcase-card:hover { transform: scale(0.985); }
+    .showcase-card.dark { background: var(--black); }
+    .showcase-card.light { background: var(--gray-bg); color: var(--black); }
+    .showcase-card-content { position: relative; z-index: 2; }
+    .showcase-eyebrow { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.75rem; opacity: 0.6; }
+    .showcase-card h3 { font-size: 2.5rem; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 1rem; }
+    .showcase-card .desc { font-size: 1.05rem; line-height: 1.6; max-width: 460px; opacity: 0.7; margin-bottom: 2rem; }
+    .showcase-link { font-size: 1.05rem; font-weight: 500; display: inline-flex; align-items: center; gap: 0.4rem; transition: gap 0.3s; }
+    .showcase-link i { width: 18px; height: 18px; transition: transform 0.3s; }
+    .showcase-card:hover .showcase-link { gap: 0.7rem; }
+    .showcase-card:hover .showcase-link i { transform: translateX(3px); }
+
+    /* Preview cards */
+    .card-preview { position: absolute; top: 3rem; right: 3rem; z-index: 1; }
+    .preview-window { background: rgba(255,255,255,0.08); border: 0.5px solid rgba(255,255,255,0.12); border-radius: 16px; backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); padding: 1.25rem; width: 380px; }
+    .preview-window.light-glass { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.08); }
+    .pw-header { display: flex; gap: 6px; margin-bottom: 1rem; }
+    .pw-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.15); }
+    .preview-window.light-glass .pw-dot { background: rgba(0,0,0,0.1); }
+    .mini-config { display: flex; flex-direction: column; gap: 0.6rem; }
+    .mini-config-row { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0.8rem; border-radius: 10px; font-size: 0.75rem; font-weight: 500; }
+    .showcase-card.dark .mini-config-row { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.7); }
+    .showcase-card.light .mini-config-row { background: rgba(0,0,0,0.04); color: var(--gray-dark); }
+    .mcr-status { display: flex; align-items: center; gap: 0.35rem; font-weight: 600; }
+    .mcr-status i { width: 13px; height: 13px; }
+    .mcr-status.ok { color: #30D158; }
+    .mcr-status.warn { color: #FF9F0A; }
+    .mini-price-total { display: flex; justify-content: space-between; padding: 0.75rem 0.8rem 0; border-top: 0.5px solid rgba(255,255,255,0.1); font-size: 0.85rem; font-weight: 700; }
+    .showcase-card.light .mini-price-total { border-top-color: rgba(0,0,0,0.08); color: var(--black); }
+    .mini-dash { display: flex; flex-direction: column; gap: 0.75rem; }
+    .mini-dash-row { display: flex; gap: 0.75rem; }
+    .mini-stat { flex: 1; border-radius: 10px; padding: 0.75rem; font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .showcase-card.light .mini-stat { background: rgba(0,0,0,0.04); color: var(--gray); }
+    .mini-stat .big { font-size: 1.4rem; font-weight: 800; letter-spacing: -1px; display: block; margin-top: 0.25rem; }
+    .showcase-card.light .mini-stat .big { color: var(--black); }
+    .mini-stat .big.red { color: var(--red); }
+    .mini-stat .big.green { color: #30D158; }
+    .mini-bars { display: flex; align-items: flex-end; gap: 4px; height: 50px; padding: 0.5rem 0.8rem; border-radius: 10px; }
+    .showcase-card.light .mini-bars { background: rgba(0,0,0,0.04); }
+    .mini-bars .bar { flex: 1; border-radius: 3px; transition: height 0.5s ease; }
+    .showcase-card.light .mini-bars .bar { background: var(--red); opacity: 0.6; }
+    .showcase-card.light .mini-bars .bar.active { opacity: 1; }
+
+    /* Footer */
+    footer { padding: 3rem 2rem; text-align: center; border-top: 0.5px solid rgba(0,0,0,0.08); }
+    footer .logo { font-weight: 800; font-size: 1rem; margin-bottom: 0.5rem; }
+    footer .logo .red { color: var(--red); }
+    footer p { font-size: 0.8rem; color: var(--gray); }
+
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      .problems-grid { grid-template-columns: 1fr 1fr; }
+      .card-preview { display: none; }
+      .showcase-card { min-height: 420px; }
+      .showcase-card h3 { font-size: 2rem; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 480px) { .problems-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo"><span class="red">7Day</span>Deal</a>
+      <ul class="nav-links">
+        <li><a href="#solutions"><i data-lucide="layers"></i> Solutions</a></li>
+        <li><a href="customer-platform.html"><i data-lucide="camera"></i> Customer Platform</a></li>
+        <li><a href="analytics-dashboard.html"><i data-lucide="bar-chart-3"></i> Analytics Dashboard</a></li>
+        <li><a href="#" style="color:var(--gray);pointer-events:none;">IS3103 &middot; Group 10C</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <p class="hero-overline">IS3103 Final Pitch &middot; Group 10C</p>
+    <h1>Reimagine how<br><span class="gradient">7DayDeal</span> sells.</h1>
+    <p class="hero-sub">A digital transformation strategy that turns product complexity into purchase confidence &mdash; powered by AI advisory, interactive configuration, and predictive analytics.</p>
+    <div class="hero-cta">
+      <a href="#solutions" class="btn btn-fill"><i data-lucide="sparkles"></i> Explore Solutions</a>
+      <a href="#context" class="btn btn-ghost"><i data-lucide="chevron-down"></i> The Problem</a>
+    </div>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Context -->
+  <section class="context" id="context">
+    <div class="context-inner">
+      <p class="context-label reveal">The Challenge</p>
+      <h2 class="reveal">A parallel import retailer<br>facing four critical gaps.</h2>
+      <p class="context-desc reveal">7DayDeal operates in a declining camera market where customers demand expert guidance, but the company's systems can't deliver it consistently.</p>
+      <div class="problems-grid">
+        <div class="problem-card reveal">
+          <div class="problem-icon"><i data-lucide="user-x"></i></div>
+          <div class="problem-number">Problem 01</div>
+          <h3>Poor Customer Experience</h3>
+          <p>Compatibility confusion leads to cart abandonment and post-sale returns.</p>
+        </div>
+        <div class="problem-card reveal">
+          <div class="problem-icon"><i data-lucide="headphones"></i></div>
+          <div class="problem-number">Problem 02</div>
+          <h3>Inconsistent Service</h3>
+          <p>Online customers receive little guidance while in-store varies by staff expertise.</p>
+        </div>
+        <div class="problem-card reveal">
+          <div class="problem-icon"><i data-lucide="shield-alert"></i></div>
+          <div class="problem-number">Problem 03</div>
+          <h3>Warranty Exposure</h3>
+          <p>No manufacturer backing means 7DayDeal absorbs all repair costs with no risk model.</p>
+        </div>
+        <div class="problem-card reveal">
+          <div class="problem-icon"><i data-lucide="trending-down"></i></div>
+          <div class="problem-number">Problem 04</div>
+          <h3>Blind Procurement</h3>
+          <p>No demand forecasting leads to overstocking slow movers and missing high-demand items.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solutions -->
+  <section class="solutions" id="solutions">
+    <div class="solutions-inner">
+      <h2 class="reveal">Two platforms.<br>One transformation.</h2>
+      <p class="solutions-sub reveal">A customer-facing gear advisor and an internal analytics dashboard, working together.</p>
+    </div>
+  </section>
+
+  <!-- Showcase -->
+  <section class="showcase">
+    <div class="showcase-inner">
+      <a href="customer-platform.html" class="showcase-card dark reveal">
+        <div class="card-preview">
+          <div class="preview-window">
+            <div class="pw-header"><div class="pw-dot"></div><div class="pw-dot"></div><div class="pw-dot"></div></div>
+            <div class="mini-config">
+              <div class="mini-config-row"><span>Fujifilm X-T5 Body</span><span class="mcr-status ok"><i data-lucide="check"></i> Selected</span></div>
+              <div class="mini-config-row"><span>XF 16-80mm f/4 OIS</span><span class="mcr-status ok"><i data-lucide="check"></i> Compatible</span></div>
+              <div class="mini-config-row"><span>72mm UV Filter</span><span class="mcr-status ok"><i data-lucide="check"></i> Compatible</span></div>
+              <div class="mini-config-row"><span>Canon EF 50mm f/1.8</span><span class="mcr-status warn"><i data-lucide="alert-triangle"></i> Adapter</span></div>
+              <div class="mini-price-total"><span>Bundle Total</span><span>S$2,623</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="showcase-card-content">
+          <p class="showcase-eyebrow">Solutions 1 &amp; 2</p>
+          <h3>Smart Gear Advisor &amp;<br>Configuration Sandbox</h3>
+          <p class="desc">AI-powered recommendations meet interactive 3D rig building. Customers select, visualize, and purchase complete compatible setups &mdash; with confidence.</p>
+          <span class="showcase-link">Explore the platform <i data-lucide="arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a href="analytics-dashboard.html" class="showcase-card light reveal">
+        <div class="card-preview">
+          <div class="preview-window light-glass">
+            <div class="pw-header"><div class="pw-dot"></div><div class="pw-dot"></div><div class="pw-dot"></div></div>
+            <div class="mini-dash">
+              <div class="mini-dash-row">
+                <div class="mini-stat">Warranty Risk<span class="big red">75</span></div>
+                <div class="mini-stat">Demand Signal<span class="big green">&uarr; 23%</span></div>
+              </div>
+              <div class="mini-bars">
+                <div class="bar" style="height:25%"></div><div class="bar" style="height:35%"></div>
+                <div class="bar" style="height:30%"></div><div class="bar" style="height:50%"></div>
+                <div class="bar" style="height:45%"></div><div class="bar" style="height:65%"></div>
+                <div class="bar active" style="height:80%"></div><div class="bar active" style="height:90%"></div>
+                <div class="bar active" style="height:75%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="showcase-card-content">
+          <p class="showcase-eyebrow">Solutions 3 &amp; 4</p>
+          <h3>Analytics Dashboard &amp;<br>Risk Intelligence</h3>
+          <p class="desc">Demand forecasting, warranty risk scoring, and supplier performance insights &mdash; turning reactive decisions into proactive strategy.</p>
+          <span class="showcase-link" style="color:var(--red);">Explore the dashboard <i data-lucide="arrow-right"></i></span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="logo"><span class="red">7Day</span>Deal</div>
+    <p>IS3103 Digital Transformation &middot; Final Pitch &middot; Group 10C</p>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 100);
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

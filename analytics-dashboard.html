@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7DayDeal - Analytics Dashboard & Risk Intelligence</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --black: #1d1d1f; --gray-dark: #424245; --gray: #86868b; --gray-light: #d2d2d7;
+      --gray-bg: #f5f5f7; --white: #fff; --red: #C41E24; --red-dark: #9B1B20;
+      --green: #30D158; --orange: #FF9F0A; --blue: #007AFF;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, sans-serif; color: var(--black); background: var(--white); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+    /* Nav */
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(255,255,255,0.72); backdrop-filter: saturate(180%) blur(20px); border-bottom: 0.5px solid rgba(0,0,0,0.08); }
+    .nav-inner { max-width: 1024px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 52px; }
+    .nav-logo { font-weight: 800; font-size: 1.15rem; text-decoration: none; color: var(--black); }
+    .nav-logo .red { color: var(--red); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--gray-dark); font-size: 0.75rem; transition: color 0.3s; display: inline-flex; align-items: center; gap: 0.4rem; }
+    .nav-links a:hover { color: var(--red); }
+    .nav-links .active { color: var(--red); font-weight: 600; }
+    .nav-links i { width: 14px; height: 14px; }
+
+    /* Hero */
+    .page-hero { padding: 10rem 2rem 5rem; text-align: center; background: var(--gray-bg); position: relative; overflow: hidden; }
+    .page-hero::after { content: ''; position: absolute; bottom: -200px; left: 50%; transform: translateX(-50%); width: 800px; height: 400px; background: radial-gradient(ellipse, rgba(196,30,36,0.06) 0%, transparent 60%); }
+    .page-hero-eyebrow { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--red); margin-bottom: 1.25rem; opacity: 0; animation: fadeUp 0.6s 0.1s ease forwards; }
+    .page-hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; letter-spacing: -2px; line-height: 1.08; max-width: 700px; margin: 0 auto; opacity: 0; animation: fadeUp 0.6s 0.2s ease forwards; }
+    .page-hero p { font-size: 1.15rem; color: var(--gray); max-width: 520px; margin: 1.5rem auto 0; line-height: 1.6; opacity: 0; animation: fadeUp 0.6s 0.35s ease forwards; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .page-hero-eyebrow, .page-hero h1, .page-hero p { transform: translateY(20px); }
+
+    /* Dashboard */
+    .dash-section { padding: 0 2rem 6rem; margin-top: -3rem; position: relative; z-index: 2; }
+    .dash-container { max-width: 1200px; margin: 0 auto; background: white; border-radius: 24px; box-shadow: 0 40px 120px rgba(0,0,0,0.1), 0 0 0 0.5px rgba(0,0,0,0.06); overflow: hidden; }
+    .browser-bar { display: flex; align-items: center; gap: 6px; padding: 14px 20px; background: #FAFAFA; border-bottom: 0.5px solid rgba(0,0,0,0.06); }
+    .bd { width: 12px; height: 12px; border-radius: 50%; }
+    .bd-r { background: #FF5F57; } .bd-y { background: #FFBD2E; } .bd-g { background: #28CA41; }
+    .browser-url { flex: 1; margin-left: 12px; background: white; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 6px; padding: 6px 14px; font-size: 0.75rem; color: var(--gray); display: flex; align-items: center; gap: 6px; }
+    .browser-url i { width: 12px; height: 12px; color: var(--gray-light); }
+
+    .dash-app { display: grid; grid-template-columns: 200px 1fr; min-height: 680px; }
+
+    /* Sidebar */
+    .dash-side { background: var(--black); padding: 20px 12px; color: white; }
+    .ds-logo { font-weight: 800; font-size: 0.9rem; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 0.5px solid rgba(255,255,255,0.1); }
+    .ds-logo span { color: var(--red); }
+    .ds-nav { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+    .ds-nav-item { display: flex; align-items: center; gap: 8px; padding: 9px 10px; border-radius: 8px; font-size: 0.75rem; color: rgba(255,255,255,0.4); cursor: pointer; transition: all 0.2s; user-select: none; }
+    .ds-nav-item i { width: 16px; height: 16px; flex-shrink: 0; }
+    .ds-nav-item:hover { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.7); }
+    .ds-nav-item.active { background: rgba(196,30,36,0.25); color: white; }
+
+    /* Main */
+    .dash-main { background: #F8F9FA; padding: 20px; overflow: hidden; }
+    .dash-topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .dash-topbar h2 { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.3px; }
+    .dash-top-right { display: flex; gap: 8px; align-items: center; }
+    .dash-filter-btn { display: flex; align-items: center; gap: 6px; background: white; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 7px 12px; font-size: 0.75rem; color: var(--gray-dark); cursor: pointer; transition: all 0.2s; user-select: none; }
+    .dash-filter-btn i { width: 14px; height: 14px; }
+    .dash-filter-btn:hover { border-color: var(--red); }
+    .dash-filter-btn.active { border-color: var(--red); color: var(--red); background: rgba(196,30,36,0.04); }
+    .dash-search { background: white; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 7px 12px 7px 32px; font-size: 0.75rem; width: 200px; outline: none; transition: border-color 0.2s; }
+    .dash-search:focus { border-color: var(--red); }
+    .search-wrap { position: relative; }
+    .search-wrap i { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; color: var(--gray-light); }
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* KPIs */
+    .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+    .kpi { background: white; border-radius: 14px; padding: 16px; border: 0.5px solid rgba(0,0,0,0.04); }
+    .kpi-label { font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--gray); margin-bottom: 6px; display: flex; align-items: center; gap: 4px; }
+    .kpi-label i { width: 12px; height: 12px; }
+    .kpi-val { font-size: 1.6rem; font-weight: 800; letter-spacing: -1px; }
+    .kpi-change { font-size: 0.7rem; font-weight: 600; margin-top: 2px; display: flex; align-items: center; gap: 3px; }
+    .kpi-change i { width: 12px; height: 12px; }
+    .kpi-change.up { color: #248A3D; }
+    .kpi-change.down { color: var(--red); }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .card { background: white; border-radius: 14px; padding: 16px; border: 0.5px solid rgba(0,0,0,0.04); }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .card-title { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray); }
+    .badge-live { font-size: 0.65rem; font-weight: 600; padding: 3px 8px; border-radius: 100px; background: rgba(48,209,88,0.1); color: #248A3D; display: inline-flex; align-items: center; gap: 4px; }
+    .badge-live i { width: 8px; height: 8px; }
+
+    /* Tables */
+    .tbl { width: 100%; font-size: 0.78rem; border-collapse: collapse; }
+    .tbl th { text-align: left; padding: 6px 0; font-size: 0.65rem; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 0.5px solid rgba(0,0,0,0.06); }
+    .tbl td { padding: 8px 0; border-bottom: 0.5px solid rgba(0,0,0,0.03); }
+    .tbl .bold { font-weight: 600; }
+    .tbl .green { color: #248A3D; font-weight: 600; display: flex; align-items: center; gap: 2px; }
+    .tbl .green i { width: 12px; height: 12px; }
+    .chip { display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 100px; font-size: 0.68rem; font-weight: 600; }
+    .chip i { width: 11px; height: 11px; }
+    .chip-red { background: rgba(196,30,36,0.08); color: var(--red); }
+    .chip-orange { background: rgba(255,159,10,0.1); color: #B25000; }
+    .chip-green { background: rgba(48,209,88,0.1); color: #248A3D; }
+    .chart-wrap { height: 170px; position: relative; margin-top: 8px; }
+    .chart-wrap svg { width: 100%; height: 100%; }
+
+    /* Risk */
+    .risk-top { display: grid; grid-template-columns: 1fr 1.2fr; gap: 10px; margin-bottom: 10px; }
+    .gauge-wrap { display: flex; flex-direction: column; align-items: center; padding: 16px 0; }
+    .gauge-svg { width: 180px; height: 100px; }
+    .gauge-score { text-align: center; margin-top: 4px; }
+    .gauge-score .num { font-size: 2.5rem; font-weight: 900; letter-spacing: -2px; }
+    .gauge-score .num.high { color: var(--red); }
+    .gauge-score .num.med { color: var(--orange); }
+    .gauge-score .num.low { color: var(--green); }
+    .gauge-score .sub { font-size: 0.7rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; }
+    .risk-factors { display: flex; gap: 8px; margin-top: 12px; width: 100%; }
+    .rf { flex: 1; text-align: center; padding: 10px; background: var(--gray-bg); border-radius: 10px; }
+    .rf-icon { margin-bottom: 4px; color: var(--gray); }
+    .rf-icon i { width: 16px; height: 16px; }
+    .rf-val { font-size: 1.05rem; font-weight: 700; }
+    .rf-label { font-size: 0.6rem; color: var(--gray); margin-top: 2px; }
+
+    .risk-products { display: flex; flex-direction: column; gap: 4px; }
+    .rp-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; border-radius: 10px; cursor: pointer; transition: all 0.2s; font-size: 0.8rem; user-select: none; background: rgba(0,0,0,0.02); }
+    .rp-item:hover { background: rgba(0,0,0,0.04); }
+    .rp-item.active { background: rgba(196,30,36,0.06); }
+    .rp-score { font-weight: 700; padding: 3px 10px; border-radius: 100px; font-size: 0.75rem; }
+    .rp-score.high { background: rgba(196,30,36,0.1); color: var(--red); }
+    .rp-score.med { background: rgba(255,159,10,0.1); color: #B25000; }
+    .rp-score.low { background: rgba(48,209,88,0.1); color: #248A3D; }
+
+    .placement-card { background: white; border-radius: 14px; padding: 16px; border: 0.5px solid rgba(0,0,0,0.04); margin-top: 10px; }
+    .shelf-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 60px); gap: 6px; margin-top: 10px; }
+    .shelf-slot { border-radius: 8px; background: var(--gray-bg); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 600; color: var(--gray); transition: all 0.4s; }
+    .shelf-slot.highlight { background: rgba(196,30,36,0.08); color: var(--red); border: 1.5px dashed var(--red); }
+
+    /* Supplier */
+    .health-bar { width: 50px; height: 5px; background: #E5E7EB; border-radius: 3px; display: inline-block; vertical-align: middle; margin-right: 6px; overflow: hidden; }
+    .hb-fill { height: 100%; border-radius: 3px; }
+    .hb-fill.good { background: var(--green); }
+    .hb-fill.ok { background: var(--orange); }
+    .hb-fill.bad { background: var(--red); }
+    .supplier-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+
+    /* Features */
+    .features { padding: 6rem 2rem; background: var(--white); }
+    .features-inner { max-width: 1024px; margin: 0 auto; }
+    .features-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gray); margin-bottom: 0.75rem; text-align: center; }
+    .features-title { font-size: 2.5rem; font-weight: 800; letter-spacing: -1.5px; text-align: center; margin-bottom: 3.5rem; line-height: 1.1; }
+    .feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .feat-card { background: var(--gray-bg); border-radius: 20px; padding: 2rem; transition: transform 0.4s cubic-bezier(0.25,0.1,0.25,1); }
+    .feat-card:hover { transform: translateY(-4px); }
+    .feat-icon { width: 48px; height: 48px; border-radius: 14px; background: rgba(196,30,36,0.06); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; color: var(--red); }
+    .feat-icon i { width: 22px; height: 22px; }
+    .feat-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .feat-card p { font-size: 0.82rem; color: var(--gray); line-height: 1.6; }
+
+    /* Feasibility */
+    .feasibility { padding: 6rem 2rem; background: var(--gray-bg); }
+    .feas-inner { max-width: 1024px; margin: 0 auto; }
+    .feas-title { font-size: 2.5rem; font-weight: 800; letter-spacing: -1.5px; text-align: center; margin-bottom: 3rem; }
+    .feas-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+    .feas-card { background: white; border-radius: 20px; padding: 2rem; text-align: center; }
+    .feas-score { font-size: 2.5rem; font-weight: 900; letter-spacing: -1px; margin-bottom: 0.25rem; }
+    .feas-score .of { font-size: 1rem; font-weight: 400; color: var(--gray); }
+    .feas-card h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .feas-card p { font-size: 0.78rem; color: var(--gray); line-height: 1.5; }
+
+    footer { padding: 2.5rem 2rem; text-align: center; border-top: 0.5px solid rgba(0,0,0,0.08); }
+    footer a { color: var(--red); text-decoration: none; font-size: 0.85rem; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
+    footer a i { width: 16px; height: 16px; }
+    footer p { font-size: 0.78rem; color: var(--gray); margin-top: 0.5rem; }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1024px) {
+      .dash-app { grid-template-columns: 1fr; }
+      .dash-side { display: none; }
+      .kpi-row { grid-template-columns: 1fr 1fr; }
+      .grid-2, .risk-top, .supplier-detail { grid-template-columns: 1fr; }
+      .feat-grid { grid-template-columns: 1fr; }
+      .feas-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span class="red">7Day</span>Deal</a>
+    <ul class="nav-links">
+      <li><a href="index.html"><i data-lucide="home"></i> Home</a></li>
+      <li><a href="customer-platform.html"><i data-lucide="camera"></i> Customer Platform</a></li>
+      <li><a href="analytics-dashboard.html" class="active"><i data-lucide="bar-chart-3"></i> Analytics Dashboard</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <p class="page-hero-eyebrow">Solutions 3 &amp; 4</p>
+  <h1>Analytics Dashboard.<br>Risk Intelligence.</h1>
+  <p>Demand forecasting, warranty risk scoring, and supplier performance &mdash; turning gut feel into data-driven decisions.</p>
+</section>
+
+<section class="dash-section">
+  <div class="dash-container">
+    <div class="browser-bar">
+      <div class="bd bd-r"></div><div class="bd bd-y"></div><div class="bd bd-g"></div>
+      <div class="browser-url"><i data-lucide="lock"></i> dashboard.7daydeal.com</div>
+    </div>
+    <div class="dash-app">
+      <div class="dash-side">
+        <div class="ds-logo"><span>7Day</span>Deal</div>
+        <ul class="ds-nav">
+          <li class="ds-nav-item active" data-nav="demand"><i data-lucide="trending-up"></i> Demand Sensing</li>
+          <li class="ds-nav-item" data-nav="risk"><i data-lucide="shield-alert"></i> Risk Scoring</li>
+          <li class="ds-nav-item" data-nav="supplier"><i data-lucide="truck"></i> Supplier Health</li>
+        </ul>
+      </div>
+      <div class="dash-main">
+        <div class="dash-topbar">
+          <h2 id="dashTitle">Demand Intelligence</h2>
+          <div class="dash-top-right">
+            <div class="dash-filter-btn" id="filterBtn"><i data-lucide="calendar"></i> Last 30 days</div>
+            <div class="search-wrap">
+              <i data-lucide="search"></i>
+              <input class="dash-search" type="text" placeholder="Search SKU or scan barcode..." id="dashSearch">
+            </div>
+          </div>
+        </div>
+
+        <!-- DEMAND -->
+        <div class="panel active" id="panelDemand">
+          <div class="kpi-row">
+            <div class="kpi">
+              <div class="kpi-label"><i data-lucide="eye"></i> Total Page Views</div>
+              <div class="kpi-val">24,891</div>
+              <div class="kpi-change up"><i data-lucide="trending-up"></i> 18.3% vs last month</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label"><i data-lucide="shopping-cart"></i> Add-to-Cart Rate</div>
+              <div class="kpi-val">8.2%</div>
+              <div class="kpi-change up"><i data-lucide="trending-up"></i> 2.1pp</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label"><i data-lucide="percent"></i> Conversion Rate</div>
+              <div class="kpi-val">3.4%</div>
+              <div class="kpi-change up"><i data-lucide="trending-up"></i> 0.8pp</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label"><i data-lucide="banknote"></i> Avg Order Value</div>
+              <div class="kpi-val">S$467</div>
+              <div class="kpi-change up"><i data-lucide="trending-up"></i> S$52</div>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Pre-Sales Rising Stars</span>
+                <span class="badge-live"><i data-lucide="circle"></i> Live</span>
+              </div>
+              <table class="tbl">
+                <thead><tr><th>Product</th><th>Views</th><th>Cart</th><th>Action</th></tr></thead>
+                <tbody>
+                  <tr><td class="bold">Sony A7C II</td><td><span class="green"><i data-lucide="trending-up"></i> 2,340</span></td><td><span class="green"><i data-lucide="trending-up"></i> 187</span></td><td><span class="chip chip-red"><i data-lucide="alert-circle"></i> Restock</span></td></tr>
+                  <tr><td class="bold">Fuji X100VI</td><td><span class="green"><i data-lucide="trending-up"></i> 1,890</span></td><td><span class="green"><i data-lucide="trending-up"></i> 156</span></td><td><span class="chip chip-red"><i data-lucide="alert-circle"></i> Restock</span></td></tr>
+                  <tr><td class="bold">Canon RF 35mm</td><td>980</td><td>72</td><td><span class="chip chip-orange"><i data-lucide="eye"></i> Monitor</span></td></tr>
+                  <tr><td class="bold">DJI Action 5</td><td>870</td><td>64</td><td><span class="chip chip-orange"><i data-lucide="eye"></i> Monitor</span></td></tr>
+                  <tr><td class="bold">Sony FE 24-70</td><td>650</td><td>41</td><td><span class="chip chip-green"><i data-lucide="check"></i> Healthy</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card">
+              <div class="card-header"><span class="card-title">Demand Forecast &mdash; Time Series</span></div>
+              <div class="chart-wrap">
+                <svg viewBox="0 0 500 170" preserveAspectRatio="none">
+                  <defs><linearGradient id="areaG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--red)" stop-opacity="0.12"/><stop offset="100%" stop-color="var(--red)" stop-opacity="0"/></linearGradient></defs>
+                  <line x1="0" y1="42" x2="500" y2="42" stroke="#F3F4F6"/><line x1="0" y1="85" x2="500" y2="85" stroke="#F3F4F6"/><line x1="0" y1="128" x2="500" y2="128" stroke="#F3F4F6"/>
+                  <text x="4" y="40" font-size="8" fill="#86868b" font-family="Inter">300</text>
+                  <text x="4" y="83" font-size="8" fill="#86868b" font-family="Inter">200</text>
+                  <text x="4" y="126" font-size="8" fill="#86868b" font-family="Inter">100</text>
+                  <polygon points="30,140 80,128 130,118 180,125 230,105 280,92 330,78 380,65 380,170 30,170" fill="url(#areaG)"/>
+                  <polyline points="30,140 80,128 130,118 180,125 230,105 280,92 330,78 380,65" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <line x1="380" y1="0" x2="380" y2="170" stroke="#E5E7EB" stroke-dasharray="4,4"/>
+                  <polygon points="380,65 430,52 480,40 500,35 500,170 380,170" fill="url(#areaG)" opacity="0.5"/>
+                  <polyline points="380,65 430,52 480,40 500,35" fill="none" stroke="var(--red)" stroke-width="2" stroke-dasharray="6,4" stroke-linecap="round" opacity="0.5"/>
+                  <circle cx="380" cy="65" r="4" fill="var(--red)"/>
+                  <text x="385" y="14" font-size="9" fill="var(--gray)" font-family="Inter">Forecast</text>
+                  <text x="30" y="164" font-size="7" fill="var(--gray)" font-family="Inter">Oct</text>
+                  <text x="130" y="164" font-size="7" fill="var(--gray)" font-family="Inter">Nov</text>
+                  <text x="230" y="164" font-size="7" fill="var(--gray)" font-family="Inter">Dec</text>
+                  <text x="330" y="164" font-size="7" fill="var(--gray)" font-family="Inter">Jan</text>
+                  <text x="430" y="164" font-size="7" fill="var(--gray)" font-family="Inter">Feb</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RISK -->
+        <div class="panel" id="panelRisk">
+          <div class="risk-top">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Warranty Risk Score</span>
+                <span id="riskLevel" style="font-size:0.72rem;font-weight:700;color:var(--red);">HIGH RISK</span>
+              </div>
+              <div class="gauge-wrap">
+                <svg class="gauge-svg" viewBox="0 0 180 100">
+                  <path d="M 15 90 A 70 70 0 0 1 165 90" fill="none" stroke="#E5E7EB" stroke-width="14" stroke-linecap="round"/>
+                  <path d="M 15 90 A 70 70 0 0 1 50 30" fill="none" stroke="#30D158" stroke-width="14" stroke-linecap="round"/>
+                  <path d="M 50 30 A 70 70 0 0 1 90 15" fill="none" stroke="#FF9F0A" stroke-width="14" stroke-linecap="round"/>
+                  <path d="M 90 15 A 70 70 0 0 1 130 30" fill="none" stroke="#FF6723" stroke-width="14" stroke-linecap="round"/>
+                  <path d="M 130 30 A 70 70 0 0 1 165 90" fill="none" stroke="#DC2626" stroke-width="14" stroke-linecap="round"/>
+                  <line x1="90" y1="90" x2="132" y2="38" stroke="var(--black)" stroke-width="3" stroke-linecap="round" id="needle"/>
+                  <circle cx="90" cy="90" r="5" fill="var(--black)"/>
+                </svg>
+                <div class="gauge-score"><div class="num high" id="riskNum">75</div><div class="sub">/ 100 Risk Score</div></div>
+                <div class="risk-factors">
+                  <div class="rf"><div class="rf-icon"><i data-lucide="activity"></i></div><div class="rf-val" id="rfFail">12.3%</div><div class="rf-label">Failure Rate</div></div>
+                  <div class="rf"><div class="rf-icon"><i data-lucide="wrench"></i></div><div class="rf-val" id="rfCost">S$285</div><div class="rf-label">Avg Repair</div></div>
+                  <div class="rf"><div class="rf-icon"><i data-lucide="star"></i></div><div class="rf-val" id="rfSupp">Low</div><div class="rf-label">Supplier</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><span class="card-title">Select Product to Analyze</span></div>
+              <div class="risk-products" id="riskProducts">
+                <div class="rp-item active" data-risk="75" data-fail="12.3%" data-cost="S$285" data-supp="Low" data-level="HIGH RISK" data-class="high" data-nx="132" data-ny="38"><span>BJ-Supply Canon EOS R8</span><span class="rp-score high">75</span></div>
+                <div class="rp-item" data-risk="58" data-fail="7.1%" data-cost="S$180" data-supp="Medium" data-level="MODERATE" data-class="med" data-nx="115" data-ny="28"><span>SZ-Elec Sony A7IV</span><span class="rp-score med">58</span></div>
+                <div class="rp-item" data-risk="32" data-fail="2.4%" data-cost="S$95" data-supp="High" data-level="LOW RISK" data-class="low" data-nx="62" data-ny="42"><span>HK-Import Fuji X-T5</span><span class="rp-score low">32</span></div>
+                <div class="rp-item" data-risk="18" data-fail="1.1%" data-cost="S$45" data-supp="High" data-level="MINIMAL" data-class="low" data-nx="42" data-ny="62"><span>JP-Direct Sony FE 24-70</span><span class="rp-score low">18</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="placement-card">
+            <div class="card-header"><span class="card-title">Recommended Shelf Placement</span><span style="font-size:0.7rem;color:var(--gray);">Based on risk + demand</span></div>
+            <div class="shelf-grid" id="shelfGrid">
+              <div class="shelf-slot">A1</div><div class="shelf-slot highlight">A2</div><div class="shelf-slot">A3</div><div class="shelf-slot">A4</div>
+              <div class="shelf-slot">B1</div><div class="shelf-slot">B2</div><div class="shelf-slot">B3</div><div class="shelf-slot">B4</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUPPLIER -->
+        <div class="panel" id="panelSupplier">
+          <div class="card" style="margin-bottom:10px">
+            <div class="card-header"><span class="card-title">Supplier Health Ranking</span></div>
+            <table class="tbl">
+              <thead><tr><th>#</th><th>Supplier</th><th>Defect %</th><th>RMA %</th><th>Lead Time</th><th>Score</th></tr></thead>
+              <tbody>
+                <tr class="supplier-row" data-supplier="hk" style="cursor:pointer"><td>1</td><td class="bold">HK Import Co.</td><td>1.2%</td><td>0.8%</td><td>5 days</td><td><span class="health-bar"><span class="hb-fill good" style="width:92%"></span></span>92</td></tr>
+                <tr class="supplier-row" data-supplier="jp" style="cursor:pointer"><td>2</td><td class="bold">JP Direct Supply</td><td>2.1%</td><td>1.4%</td><td>7 days</td><td><span class="health-bar"><span class="hb-fill good" style="width:85%"></span></span>85</td></tr>
+                <tr class="supplier-row" data-supplier="sz" style="cursor:pointer"><td>3</td><td class="bold">SZ Electronics</td><td>4.8%</td><td>3.2%</td><td>12 days</td><td><span class="health-bar"><span class="hb-fill ok" style="width:61%"></span></span>61</td></tr>
+                <tr class="supplier-row" data-supplier="bj" style="cursor:pointer"><td>4</td><td class="bold">BJ Wholesale</td><td>8.5%</td><td>6.1%</td><td>18 days</td><td><span class="health-bar"><span class="hb-fill bad" style="width:38%"></span></span>38</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="supplier-detail">
+            <div class="card">
+              <div class="card-header"><span class="card-title">Defect Rate Trend</span></div>
+              <div class="chart-wrap" style="height:130px">
+                <svg viewBox="0 0 300 130" preserveAspectRatio="none">
+                  <line x1="0" y1="43" x2="300" y2="43" stroke="#F3F4F6"/><line x1="0" y1="87" x2="300" y2="87" stroke="#F3F4F6"/>
+                  <polyline points="0,100 50,95 100,85 150,70 200,65 250,55 300,50" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="defectLine"/>
+                </svg>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><span class="card-title">Procurement Recommendation</span></div>
+              <div style="padding:8px 0">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+                  <span class="chip chip-green" style="font-size:0.75rem;padding:5px 12px" id="procAction"><i data-lucide="arrow-up"></i> Increase Orders</span>
+                </div>
+                <p style="font-size:0.8rem;color:var(--gray);line-height:1.5" id="procText">HK Import Co. shows consistently declining defect rates and best-in-class RMA performance. Recommend increasing allocation by 15-20% for next quarter.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="features-inner">
+    <p class="features-label reveal">Key Capabilities</p>
+    <h2 class="features-title reveal">Intelligence that drives<br>every procurement decision.</h2>
+    <div class="feat-grid">
+      <div class="feat-card reveal"><div class="feat-icon"><i data-lucide="radar"></i></div><h4>Pre-Sales Demand Sensing</h4><p>Tracks browsing behavior and add-to-cart signals to predict demand before purchases happen.</p></div>
+      <div class="feat-card reveal"><div class="feat-icon"><i data-lucide="shield-check"></i></div><h4>Warranty Risk Scoring</h4><p>0-100 composite score per product combining failure rates, repair costs, and supplier reliability data.</p></div>
+      <div class="feat-card reveal"><div class="feat-icon"><i data-lucide="git-compare"></i></div><h4>Supplier Performance</h4><p>Ranks suppliers by quality metrics with clear, evidence-based procurement recommendations.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="feasibility">
+  <div class="feas-inner">
+    <h2 class="feas-title reveal">Feasibility Assessment</h2>
+    <div class="feas-grid">
+      <div class="feas-card reveal"><div class="feas-score">8<span class="of">/10</span></div><h4>Technical</h4><p>Mature ETL + cloud dashboard tech. Moderate complexity from multi-platform integration.</p></div>
+      <div class="feas-card reveal"><div class="feas-score">8<span class="of">/10</span></div><h4>Financial</h4><p>Low cost with open source tools. ROI from reduced dead stock and warranty savings.</p></div>
+      <div class="feas-card reveal"><div class="feas-score">9<span class="of">/10</span></div><h4>Operational</h4><p>Augments existing workflows with simple, actionable insights. High adoption likelihood.</p></div>
+      <div class="feas-card reveal"><div class="feas-score">7<span class="of">/10</span></div><h4>Compliance</h4><p>Requires PDPA-compliant behavioral tracking and secure centralised data storage.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="index.html"><i data-lucide="arrow-left"></i> Back to Home</a>
+  <p>7DayDeal &middot; IS3103 &middot; Group 10C</p>
+</footer>
+
+<script>
+  lucide.createIcons();
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Panel switching
+  const navItems = document.querySelectorAll('.ds-nav-item');
+  const panels = { demand: 'panelDemand', risk: 'panelRisk', supplier: 'panelSupplier' };
+  const titles = { demand: 'Demand Intelligence', risk: 'Warranty Risk Analysis', supplier: 'Supplier Performance' };
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      navItems.forEach(n => n.classList.remove('active'));
+      item.classList.add('active');
+      Object.values(panels).forEach(p => document.getElementById(p).classList.remove('active'));
+      document.getElementById(panels[item.dataset.nav]).classList.add('active');
+      document.getElementById('dashTitle').textContent = titles[item.dataset.nav];
+    });
+  });
+
+  // Risk product selection
+  document.querySelectorAll('.rp-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.rp-item').forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+      const d = item.dataset;
+      document.getElementById('riskNum').textContent = d.risk;
+      document.getElementById('riskNum').className = 'num ' + d.class;
+      document.getElementById('riskLevel').textContent = d.level;
+      document.getElementById('riskLevel').style.color = d.class === 'high' ? 'var(--red)' : d.class === 'med' ? 'var(--orange)' : 'var(--green)';
+      document.getElementById('rfFail').textContent = d.fail;
+      document.getElementById('rfCost').textContent = d.cost;
+      document.getElementById('rfSupp').textContent = d.supp;
+      document.getElementById('needle').setAttribute('x2', d.nx);
+      document.getElementById('needle').setAttribute('y2', d.ny);
+      const slots = document.querySelectorAll('.shelf-slot');
+      slots.forEach(s => s.classList.remove('highlight'));
+      slots[d.risk > 60 ? 7 : d.risk > 40 ? 4 : d.risk > 20 ? 1 : 0].classList.add('highlight');
+    });
+  });
+
+  // Supplier
+  const supplierData = {
+    hk: { line: '0,100 50,95 100,85 150,70 200,65 250,55 300,50', color: 'var(--green)', actionIcon: 'arrow-up', action: 'Increase Orders', actionClass: 'chip-green', text: 'HK Import Co. shows consistently declining defect rates and best-in-class RMA performance. Recommend increasing allocation by 15-20% for next quarter.' },
+    jp: { line: '0,90 50,88 100,82 150,78 200,75 250,72 300,68', color: 'var(--green)', actionIcon: 'arrow-up', action: 'Increase Orders', actionClass: 'chip-green', text: 'JP Direct Supply maintains stable quality metrics with reliable lead times. Good candidate for expanding product range allocation.' },
+    sz: { line: '0,60 50,65 100,62 150,68 200,72 250,70 300,75', color: 'var(--orange)', actionIcon: 'alert-triangle', action: 'Review Terms', actionClass: 'chip-orange', text: 'SZ Electronics shows rising defect trends over the past 3 months. Recommend quality audit and renegotiating warranty terms before next order.' },
+    bj: { line: '0,50 50,55 100,65 150,70 200,80 250,88 300,95', color: 'var(--red)', actionIcon: 'arrow-down', action: 'Reduce / Replace', actionClass: 'chip-red', text: 'BJ Wholesale has deteriorating quality across all metrics. High RMA rate is eroding margins. Recommend phasing out and sourcing alternatives.' },
+  };
+  document.querySelectorAll('.supplier-row').forEach(row => {
+    row.addEventListener('click', () => {
+      document.querySelectorAll('.supplier-row').forEach(r => r.style.background = '');
+      row.style.background = 'rgba(196,30,36,0.04)';
+      const d = supplierData[row.dataset.supplier];
+      document.getElementById('defectLine').setAttribute('points', d.line);
+      document.getElementById('defectLine').setAttribute('stroke', d.color);
+      const pa = document.getElementById('procAction');
+      pa.innerHTML = `<i data-lucide="${d.actionIcon}"></i> ${d.action}`;
+      pa.className = 'chip ' + d.actionClass;
+      pa.style.fontSize = '0.75rem'; pa.style.padding = '5px 12px';
+      document.getElementById('procText').textContent = d.text;
+      lucide.createIcons({ nodes: pa.querySelectorAll('[data-lucide]') });
+    });
+  });
+
+  // Date filter
+  const filterTexts = ['Last 30 days', 'Last 90 days', 'Last 12 months', 'All time'];
+  let filterIdx = 0;
+  document.getElementById('filterBtn').addEventListener('click', function() {
+    filterIdx = (filterIdx + 1) % filterTexts.length;
+    this.innerHTML = `<i data-lucide="calendar"></i> ${filterTexts[filterIdx]}`;
+    this.classList.toggle('active', filterIdx > 0);
+    lucide.createIcons({ nodes: this.querySelectorAll('[data-lucide]') });
+  });
+
+  // Search
+  document.getElementById('dashSearch').addEventListener('input', function() {
+    const val = this.value.toLowerCase();
+    document.querySelectorAll('.tbl tbody tr').forEach(row => { row.style.display = row.textContent.toLowerCase().includes(val) ? '' : 'none'; });
+  });
+</script>
+</body>
+</html>
