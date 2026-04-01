@@ -151,11 +151,47 @@
     .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
+    /* Hamburger */
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; color: var(--black); padding: 0.5rem; }
+    .nav-toggle i { width: 22px; height: 22px; }
+    .mobile-menu { display: none; position: fixed; top: 52px; left: 0; right: 0; background: rgba(255,255,255,0.96); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 0.5px solid rgba(0,0,0,0.08); padding: 1rem 1.5rem; z-index: 99; }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a { display: flex; align-items: center; gap: 0.6rem; padding: 0.85rem 0; text-decoration: none; color: var(--gray-dark); font-size: 0.9rem; font-weight: 500; border-bottom: 0.5px solid rgba(0,0,0,0.06); }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a i { width: 16px; height: 16px; }
+
     @media (max-width: 1024px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
       .app { grid-template-columns: 1fr; }
-      .sidebar, .config { display: none; }
+      .sidebar { border-right: none; border-bottom: 0.5px solid rgba(0,0,0,0.06); padding: 20px 16px; }
+      .sidebar-logo { display: none; }
+      .steps { flex-direction: row; flex-wrap: wrap; gap: 6px; }
+      .step { padding: 8px 12px; font-size: 0.75rem; }
+      .compat-section { margin-top: 16px; }
+      .compat-list { flex-direction: row; flex-wrap: wrap; gap: 4px; }
+      .compat-item { padding: 6px 10px; font-size: 0.72rem; border-radius: 980px; border: 0.5px solid rgba(0,0,0,0.08); }
+      .compat-item.selected { border-color: var(--red); }
+      .viewport { min-height: 360px; }
+      .config { border-left: none; border-top: 0.5px solid rgba(0,0,0,0.06); }
       .feat-grid { grid-template-columns: 1fr; }
       .feas-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .page-hero { padding: 8rem 1.5rem 4rem; }
+      .page-hero h1 { letter-spacing: -1.5px; }
+      .page-hero p { font-size: 1rem; }
+      .app-section { padding: 0 1rem 4rem; }
+      .camera-display { width: 260px; height: 200px; }
+      .steps { flex-direction: column; }
+      .feas-grid { grid-template-columns: 1fr 1fr; }
+      .features, .feasibility { padding: 4rem 1.5rem; }
+      .features-title, .feas-title { font-size: 1.8rem; letter-spacing: -1px; }
+    }
+    @media (max-width: 480px) {
+      .feas-grid { grid-template-columns: 1fr; }
+      .compat-list { flex-direction: column; }
+      .compat-item { border-radius: 8px; }
     }
   </style>
 </head>
@@ -169,8 +205,14 @@
       <li><a href="customer-platform.html" class="active"><i data-lucide="camera"></i> Customer Platform</a></li>
       <li><a href="analytics-dashboard.html"><i data-lucide="bar-chart-3"></i> Analytics Dashboard</a></li>
     </ul>
+    <button class="nav-toggle" onclick="document.querySelector('.mobile-menu').classList.toggle('open'); lucide.createIcons();" aria-label="Menu"><i data-lucide="menu"></i></button>
   </div>
 </nav>
+<div class="mobile-menu">
+  <a href="index.html"><i data-lucide="home"></i> Home</a>
+  <a href="customer-platform.html"><i data-lucide="camera"></i> Customer Platform</a>
+  <a href="analytics-dashboard.html"><i data-lucide="bar-chart-3"></i> Analytics Dashboard</a>
+</div>
 
 <section class="page-hero">
   <p class="page-hero-eyebrow">Solutions 1 &amp; 2</p>

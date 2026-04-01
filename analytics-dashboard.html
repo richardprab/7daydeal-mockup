@@ -93,7 +93,8 @@
     .badge-live i { width: 8px; height: 8px; }
 
     /* Tables */
-    .tbl { width: 100%; font-size: 0.78rem; border-collapse: collapse; }
+    .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .tbl { width: 100%; font-size: 0.78rem; border-collapse: collapse; min-width: 400px; }
     .tbl th { text-align: left; padding: 6px 0; font-size: 0.65rem; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 0.5px solid rgba(0,0,0,0.06); }
     .tbl td { padding: 8px 0; border-bottom: 0.5px solid rgba(0,0,0,0.03); }
     .tbl .bold { font-weight: 600; }
@@ -178,13 +179,52 @@
     .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
+    /* Hamburger */
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; color: var(--black); padding: 0.5rem; }
+    .nav-toggle i { width: 22px; height: 22px; }
+    .mobile-menu { display: none; position: fixed; top: 52px; left: 0; right: 0; background: rgba(255,255,255,0.96); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 0.5px solid rgba(0,0,0,0.08); padding: 1rem 1.5rem; z-index: 99; }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a { display: flex; align-items: center; gap: 0.6rem; padding: 0.85rem 0; text-decoration: none; color: var(--gray-dark); font-size: 0.9rem; font-weight: 500; border-bottom: 0.5px solid rgba(0,0,0,0.06); }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a i { width: 16px; height: 16px; }
+
     @media (max-width: 1024px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
       .dash-app { grid-template-columns: 1fr; }
-      .dash-side { display: none; }
+      .dash-side { padding: 12px; }
+      .ds-logo { display: none; }
+      .ds-nav { flex-direction: row; gap: 4px; overflow-x: auto; }
+      .ds-nav-item { white-space: nowrap; padding: 8px 14px; border-radius: 980px; font-size: 0.72rem; }
       .kpi-row { grid-template-columns: 1fr 1fr; }
       .grid-2, .risk-top, .supplier-detail { grid-template-columns: 1fr; }
       .feat-grid { grid-template-columns: 1fr; }
       .feas-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .page-hero { padding: 8rem 1.5rem 4rem; }
+      .page-hero h1 { letter-spacing: -1.5px; }
+      .page-hero p { font-size: 1rem; }
+      .dash-section { padding: 0 1rem 4rem; }
+      .dash-topbar { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .dash-top-right { width: 100%; }
+      .dash-search { width: 100%; }
+      .search-wrap { flex: 1; }
+      .kpi-val { font-size: 1.3rem; }
+      .tbl { font-size: 0.72rem; }
+      .tbl th { font-size: 0.6rem; }
+      .shelf-grid { grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 50px); }
+      .gauge-svg { width: 150px; height: 84px; }
+      .gauge-score .num { font-size: 2rem; }
+      .risk-factors { flex-direction: row; }
+      .features, .feasibility { padding: 4rem 1.5rem; }
+      .features-title, .feas-title { font-size: 1.8rem; letter-spacing: -1px; }
+      .health-bar { width: 35px; }
+    }
+    @media (max-width: 480px) {
+      .kpi-row { grid-template-columns: 1fr; }
+      .feas-grid { grid-template-columns: 1fr; }
+      .risk-factors { flex-direction: column; }
     }
   </style>
 </head>
@@ -198,8 +238,14 @@
       <li><a href="customer-platform.html"><i data-lucide="camera"></i> Customer Platform</a></li>
       <li><a href="analytics-dashboard.html" class="active"><i data-lucide="bar-chart-3"></i> Analytics Dashboard</a></li>
     </ul>
+    <button class="nav-toggle" onclick="document.querySelector('.mobile-menu').classList.toggle('open'); lucide.createIcons();" aria-label="Menu"><i data-lucide="menu"></i></button>
   </div>
 </nav>
+<div class="mobile-menu">
+  <a href="index.html"><i data-lucide="home"></i> Home</a>
+  <a href="customer-platform.html"><i data-lucide="camera"></i> Customer Platform</a>
+  <a href="analytics-dashboard.html"><i data-lucide="bar-chart-3"></i> Analytics Dashboard</a>
+</div>
 
 <section class="page-hero">
   <p class="page-hero-eyebrow">Solutions 3 &amp; 4</p>
@@ -264,7 +310,7 @@
                 <span class="card-title">Pre-Sales Rising Stars</span>
                 <span class="badge-live"><i data-lucide="circle"></i> Live</span>
               </div>
-              <table class="tbl">
+              <div class="tbl-wrap"><table class="tbl">
                 <thead><tr><th>Product</th><th>Views</th><th>Cart</th><th>Action</th></tr></thead>
                 <tbody>
                   <tr><td class="bold">Sony A7C II</td><td><span class="green"><i data-lucide="trending-up"></i> 2,340</span></td><td><span class="green"><i data-lucide="trending-up"></i> 187</span></td><td><span class="chip chip-red"><i data-lucide="alert-circle"></i> Restock</span></td></tr>
@@ -273,7 +319,7 @@
                   <tr><td class="bold">DJI Action 5</td><td>870</td><td>64</td><td><span class="chip chip-orange"><i data-lucide="eye"></i> Monitor</span></td></tr>
                   <tr><td class="bold">Sony FE 24-70</td><td>650</td><td>41</td><td><span class="chip chip-green"><i data-lucide="check"></i> Healthy</span></td></tr>
                 </tbody>
-              </table>
+              </table></div>
             </div>
             <div class="card">
               <div class="card-header"><span class="card-title">Demand Forecast &mdash; Time Series</span></div>
@@ -351,7 +397,7 @@
         <div class="panel" id="panelSupplier">
           <div class="card" style="margin-bottom:10px">
             <div class="card-header"><span class="card-title">Supplier Health Ranking</span></div>
-            <table class="tbl">
+            <div class="tbl-wrap"><table class="tbl">
               <thead><tr><th>#</th><th>Supplier</th><th>Defect %</th><th>RMA %</th><th>Lead Time</th><th>Score</th></tr></thead>
               <tbody>
                 <tr class="supplier-row" data-supplier="hk" style="cursor:pointer"><td>1</td><td class="bold">HK Import Co.</td><td>1.2%</td><td>0.8%</td><td>5 days</td><td><span class="health-bar"><span class="hb-fill good" style="width:92%"></span></span>92</td></tr>
@@ -359,7 +405,7 @@
                 <tr class="supplier-row" data-supplier="sz" style="cursor:pointer"><td>3</td><td class="bold">SZ Electronics</td><td>4.8%</td><td>3.2%</td><td>12 days</td><td><span class="health-bar"><span class="hb-fill ok" style="width:61%"></span></span>61</td></tr>
                 <tr class="supplier-row" data-supplier="bj" style="cursor:pointer"><td>4</td><td class="bold">BJ Wholesale</td><td>8.5%</td><td>6.1%</td><td>18 days</td><td><span class="health-bar"><span class="hb-fill bad" style="width:38%"></span></span>38</td></tr>
               </tbody>
-            </table>
+            </table></div>
           </div>
           <div class="supplier-detail">
             <div class="card">
