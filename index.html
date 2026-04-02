@@ -86,10 +86,20 @@
     /* Showcase */
     .showcase { padding: 4rem 2rem 8rem; }
     .showcase-inner { max-width: 1024px; margin: 0 auto; display: flex; flex-direction: column; gap: 2rem; }
+    .showcase-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
     .showcase-card { border-radius: 28px; overflow: hidden; position: relative; min-height: 620px; display: flex; flex-direction: column; justify-content: flex-end; padding: 3.5rem; text-decoration: none; color: white; transition: transform 0.5s cubic-bezier(0.25,0.1,0.25,1); cursor: pointer; }
+    .showcase-row .showcase-card { min-height: 440px; padding: 2.5rem; }
+    .showcase-row .showcase-card h3 { font-size: 2rem; }
     .showcase-card:hover { transform: scale(0.985); }
     .showcase-card.dark { background: var(--black); }
+    .showcase-card.mid { background: #2A2A2E; }
     .showcase-card.light { background: var(--gray-bg); color: var(--black); }
+    .showcase-audience { display: inline-flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .showcase-audience .tag { font-size: 0.62rem; font-weight: 600; padding: 4px 10px; border-radius: 100px; display: inline-flex; align-items: center; gap: 4px; }
+    .showcase-audience .tag i { width: 11px; height: 11px; }
+    .showcase-audience .tag.customer { background: rgba(27,140,90,0.15); color: #4ADE80; }
+    .showcase-audience .tag.staff { background: rgba(212,160,23,0.15); color: #FBBF24; }
+    .showcase-audience .tag.customer-only { background: rgba(27,140,90,0.15); color: #4ADE80; }
     .showcase-card-content { position: relative; z-index: 2; }
     .showcase-eyebrow { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.75rem; opacity: 0.6; }
     .showcase-card h3 { font-size: 2.5rem; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 1rem; }
@@ -154,8 +164,11 @@
       .nav-toggle { display: block; }
       .problems-grid { grid-template-columns: 1fr 1fr; }
       .card-preview { display: none; }
-      .showcase-card { min-height: 420px; padding: 2.5rem; }
+      .showcase-row { grid-template-columns: 1fr; }
+      .showcase-card { min-height: 380px; padding: 2.5rem; }
+      .showcase-row .showcase-card { min-height: 340px; }
       .showcase-card h3 { font-size: 2rem; }
+      .showcase-row .showcase-card h3 { font-size: 1.8rem; }
       .hero h1 { letter-spacing: -2px; }
       .hero-sub { font-size: 1.1rem; }
       .hero-cta { flex-direction: column; align-items: center; }
@@ -164,7 +177,8 @@
     }
     @media (max-width: 480px) {
       .problems-grid { grid-template-columns: 1fr; }
-      .showcase-card { min-height: 360px; padding: 2rem; }
+      .showcase-card { min-height: 320px; padding: 2rem; }
+      .showcase-row .showcase-card { min-height: 300px; }
       .showcase-card h3 { font-size: 1.6rem; }
       .showcase-card .desc { font-size: 0.95rem; }
       .context { padding: 5rem 1.5rem; }
@@ -180,17 +194,18 @@
       <a href="index.html" class="nav-logo"><span class="red">7Day</span>Deal</a>
       <ul class="nav-links">
         <li><a href="#solutions"><i data-lucide="layers"></i> Solutions</a></li>
-        <li><a href="customer-platform.html"><i data-lucide="camera"></i> Customer Platform</a></li>
-        <li><a href="analytics-dashboard.html"><i data-lucide="bar-chart-3"></i> Analytics Dashboard</a></li>
-        <li><a href="#" style="color:var(--gray);pointer-events:none;">IS3103 &middot; Group 10C</a></li>
+        <li><a href="gear-advisor.html"><i data-lucide="brain"></i> Gear Advisor</a></li>
+        <li><a href="customer-platform.html"><i data-lucide="camera"></i> 3D Sandbox</a></li>
+        <li><a href="analytics-dashboard.html"><i data-lucide="bar-chart-3"></i> Analytics</a></li>
       </ul>
       <button class="nav-toggle" onclick="document.querySelector('.mobile-menu').classList.toggle('open'); lucide.createIcons();" aria-label="Menu"><i data-lucide="menu"></i></button>
     </div>
   </nav>
   <div class="mobile-menu">
     <a href="#solutions"><i data-lucide="layers"></i> Solutions</a>
-    <a href="customer-platform.html"><i data-lucide="camera"></i> Customer Platform</a>
-    <a href="analytics-dashboard.html"><i data-lucide="bar-chart-3"></i> Analytics Dashboard</a>
+    <a href="gear-advisor.html"><i data-lucide="brain"></i> Gear Advisor</a>
+    <a href="customer-platform.html"><i data-lucide="camera"></i> 3D Sandbox</a>
+    <a href="analytics-dashboard.html"><i data-lucide="bar-chart-3"></i> Analytics</a>
   </div>
 
   <!-- Hero -->
@@ -246,34 +261,40 @@
   <!-- Solutions -->
   <section class="solutions" id="solutions">
     <div class="solutions-inner">
-      <h2 class="reveal">Two platforms.<br>One transformation.</h2>
-      <p class="solutions-sub reveal">A customer-facing gear advisor and an internal analytics dashboard, working together.</p>
+      <h2 class="reveal">Three solutions.<br>One transformation.</h2>
+      <p class="solutions-sub reveal">An AI advisor, a visual sandbox, and an analytics engine &mdash; each solving a different gap, all working together.</p>
     </div>
   </section>
 
   <!-- Showcase -->
   <section class="showcase">
     <div class="showcase-inner">
-      <a href="customer-platform.html" class="showcase-card dark reveal">
-        <div class="card-preview">
-          <div class="preview-window">
-            <div class="pw-header"><div class="pw-dot"></div><div class="pw-dot"></div><div class="pw-dot"></div></div>
-            <div class="mini-config">
-              <div class="mini-config-row"><span>Fujifilm X-T5 Body</span><span class="mcr-status ok"><i data-lucide="check"></i> Selected</span></div>
-              <div class="mini-config-row"><span>XF 16-80mm f/4 OIS</span><span class="mcr-status ok"><i data-lucide="check"></i> Compatible</span></div>
-              <div class="mini-config-row"><span>72mm UV Filter</span><span class="mcr-status ok"><i data-lucide="check"></i> Compatible</span></div>
-              <div class="mini-config-row"><span>Canon EF 50mm f/1.8</span><span class="mcr-status warn"><i data-lucide="alert-triangle"></i> Adapter</span></div>
-              <div class="mini-price-total"><span>Bundle Total</span><span>S$2,623</span></div>
+      <div class="showcase-row">
+        <a href="gear-advisor.html" class="showcase-card dark reveal">
+          <div class="showcase-card-content">
+            <p class="showcase-eyebrow">Solution 1</p>
+            <div class="showcase-audience">
+              <span class="tag customer"><i data-lucide="user"></i> Customer</span>
+              <span class="tag staff"><i data-lucide="headset"></i> Staff</span>
             </div>
+            <h3>Smart Gear<br>Advisor</h3>
+            <p class="desc">AI-powered product recommendations that deliver expert-quality guidance &mdash; whether browsing online or consulting in-store.</p>
+            <span class="showcase-link">Explore the advisor <i data-lucide="arrow-right"></i></span>
           </div>
-        </div>
-        <div class="showcase-card-content">
-          <p class="showcase-eyebrow">Solutions 1 &amp; 2</p>
-          <h3>Smart Gear Advisor &amp;<br>Configuration Sandbox</h3>
-          <p class="desc">AI-powered recommendations meet interactive 3D rig building. Customers select, visualize, and purchase complete compatible setups &mdash; with confidence.</p>
-          <span class="showcase-link">Explore the platform <i data-lucide="arrow-right"></i></span>
-        </div>
-      </a>
+        </a>
+
+        <a href="customer-platform.html" class="showcase-card mid reveal">
+          <div class="showcase-card-content">
+            <p class="showcase-eyebrow">Solutions 1 &amp; 2</p>
+            <div class="showcase-audience">
+              <span class="tag customer-only"><i data-lucide="user"></i> Customer Only</span>
+            </div>
+            <h3>Advisor &amp;<br>3D Sandbox</h3>
+            <p class="desc">AI recommendations feed into an interactive 3D rig builder. From first suggestion to final purchase in one flow.</p>
+            <span class="showcase-link">Explore the sandbox <i data-lucide="arrow-right"></i></span>
+          </div>
+        </a>
+      </div>
 
       <a href="analytics-dashboard.html" class="showcase-card light reveal">
         <div class="card-preview">

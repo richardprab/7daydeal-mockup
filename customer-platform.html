@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>7DayDeal - Smart Gear Advisor & Configuration Sandbox</title>
+  <title>7DayDeal - Smart Advisor & Configuration Sandbox</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <style>
@@ -61,6 +61,21 @@
     .step-num i { width: 14px; height: 14px; }
     .step.completed .step-num { background: var(--green); border-color: var(--green); color: white; }
     .step.active .step-num { background: var(--red); border-color: var(--red); color: white; }
+    /* AI Quick Pick */
+    .ai-pick { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 0.5px solid rgba(0,0,0,0.06); }
+    .ai-pick-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gray); margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
+    .ai-pick-label i { width: 12px; height: 12px; color: var(--red); }
+    .ai-pick-item { display: flex; align-items: center; gap: 10px; padding: 10px; background: white; border-radius: 10px; border: 0.5px solid rgba(0,0,0,0.04); cursor: pointer; transition: all 0.2s; }
+    .ai-pick-item:hover { border-color: rgba(196,30,36,0.2); }
+    .ai-pick-item.active { border-color: var(--green); background: rgba(27,140,90,0.03); }
+    .ai-pick-match { width: 36px; height: 36px; border-radius: 10px; background: rgba(27,140,90,0.08); color: #157A48; font-size: 0.72rem; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .ai-pick-info { min-width: 0; }
+    .ai-pick-name { font-size: 0.78rem; font-weight: 700; letter-spacing: -0.2px; }
+    .ai-pick-reason { font-size: 0.65rem; color: var(--gray); margin-top: 1px; }
+    .ai-pick-more { font-size: 0.65rem; color: var(--red); font-weight: 600; margin-top: 6px; display: inline-flex; align-items: center; gap: 3px; text-decoration: none; }
+    .ai-pick-more i { width: 11px; height: 11px; }
+    .ai-pick-more:hover { text-decoration: underline; }
+
     .compat-section { margin-top: auto; padding-top: 16px; border-top: 0.5px solid rgba(0,0,0,0.06); }
     .compat-title { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gray); margin-bottom: 10px; }
     .compat-list { list-style: none; display: flex; flex-direction: column; gap: 2px; }
@@ -103,6 +118,16 @@
     .mr-status i { width: 13px; height: 13px; }
     .mr-status.ok { color: #157A48; }
     .mr-status.warn { color: #9A7209; }
+    /* AI Insight */
+    .ai-insight { background: rgba(27,140,90,0.04); border: 0.5px solid rgba(27,140,90,0.12); border-radius: 12px; padding: 12px 14px; margin-bottom: 16px; transition: all 0.3s; }
+    .ai-insight-header { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--green); margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
+    .ai-insight-header i { width: 12px; height: 12px; }
+    .ai-insight p { font-size: 0.72rem; color: var(--gray-dark); line-height: 1.5; }
+    .ai-insight.warn { background: rgba(212,160,23,0.04); border-color: rgba(212,160,23,0.12); }
+    .ai-insight.warn .ai-insight-header { color: var(--yellow); }
+    .ai-insight.bad { background: rgba(196,30,36,0.04); border-color: rgba(196,30,36,0.12); }
+    .ai-insight.bad .ai-insight-header { color: var(--red); }
+
     .prices { margin-bottom: 20px; }
     .prices-title { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gray); margin-bottom: 10px; }
     .price-line { display: flex; justify-content: space-between; padding: 5px 0; font-size: 0.82rem; }
@@ -206,29 +231,31 @@
     <a href="index.html" class="nav-logo"><span class="red">7Day</span>Deal</a>
     <ul class="nav-links">
       <li><a href="index.html"><i data-lucide="home"></i> Home</a></li>
-      <li><a href="customer-platform.html" class="active"><i data-lucide="camera"></i> Customer Platform</a></li>
-      <li><a href="analytics-dashboard.html"><i data-lucide="bar-chart-3"></i> Analytics Dashboard</a></li>
+      <li><a href="gear-advisor.html"><i data-lucide="brain"></i> Gear Advisor</a></li>
+      <li><a href="customer-platform.html" class="active"><i data-lucide="camera"></i> 3D Sandbox</a></li>
+      <li><a href="analytics-dashboard.html"><i data-lucide="bar-chart-3"></i> Analytics</a></li>
     </ul>
     <button class="nav-toggle" onclick="document.querySelector('.mobile-menu').classList.toggle('open'); lucide.createIcons();" aria-label="Menu"><i data-lucide="menu"></i></button>
   </div>
 </nav>
 <div class="mobile-menu">
   <a href="index.html"><i data-lucide="home"></i> Home</a>
-  <a href="customer-platform.html"><i data-lucide="camera"></i> Customer Platform</a>
-  <a href="analytics-dashboard.html"><i data-lucide="bar-chart-3"></i> Analytics Dashboard</a>
+  <a href="gear-advisor.html"><i data-lucide="brain"></i> Gear Advisor</a>
+  <a href="customer-platform.html"><i data-lucide="camera"></i> 3D Sandbox</a>
+  <a href="analytics-dashboard.html"><i data-lucide="bar-chart-3"></i> Analytics</a>
 </div>
 
 <section class="page-hero">
   <p class="page-hero-eyebrow">Solutions 1 &amp; 2</p>
-  <h1>Smart Gear Advisor.<br>Configuration Sandbox.</h1>
-  <p>Build your perfect camera rig with AI-powered compatibility intelligence and immersive 3D visualization.</p>
+  <h1>Smart Advisor.<br>Configuration Sandbox.</h1>
+  <p>AI-powered gear recommendations feed into an interactive 3D rig builder &mdash; from first suggestion to final purchase, all in one flow.</p>
 </section>
 
 <section class="app-section">
   <div class="app-container">
     <div class="browser-bar">
       <div class="bd bd-r"></div><div class="bd bd-y"></div><div class="bd bd-g"></div>
-      <div class="browser-url"><i data-lucide="lock"></i> 7daydeal.com/gear-advisor</div>
+      <div class="browser-url"><i data-lucide="lock"></i> 7daydeal.com/build</div>
     </div>
     <div class="app">
       <div class="sidebar">
@@ -239,6 +266,17 @@
           <li class="step" data-step="2"><div class="step-num">3</div> Add Accessories</li>
           <li class="step" data-step="3"><div class="step-num">4</div> Review &amp; Checkout</li>
         </ul>
+        <div class="ai-pick">
+          <div class="ai-pick-label"><i data-lucide="sparkles"></i> AI Suggestion</div>
+          <div class="ai-pick-item active">
+            <div class="ai-pick-match">94%</div>
+            <div class="ai-pick-info">
+              <div class="ai-pick-name">XF 16-80mm f/4 OIS</div>
+              <div class="ai-pick-reason">Best for landscape &middot; Weather sealed</div>
+            </div>
+          </div>
+          <a href="gear-advisor.html" class="ai-pick-more"><i data-lucide="arrow-right"></i> Full advisor</a>
+        </div>
         <div class="compat-section">
           <div class="compat-title">Compatible Lenses</div>
           <ul class="compat-list" id="compatList">
@@ -296,6 +334,10 @@
           <div class="matrix-row"><span>Stabilization</span><span class="mr-status ok" id="matStab"><i data-lucide="check"></i> OIS + IBIS</span></div>
           <div class="matrix-row"><span>Weather Sealing</span><span class="mr-status warn" id="matWeather"><i data-lucide="alert-triangle"></i> Partial</span></div>
         </div>
+        <div class="ai-insight" id="aiInsight">
+          <div class="ai-insight-header"><i data-lucide="sparkles"></i> AI Advisor Insight</div>
+          <p id="aiInsightText">Great pick for landscape. The XF 16-80mm offers versatile zoom range with OIS &mdash; ideal for travel and outdoor shooting.</p>
+        </div>
         <div class="prices">
           <div class="prices-title">Price Breakdown</div>
           <div class="price-line"><span>Fujifilm X-T5 Body</span><span>S$1,899</span></div>
@@ -316,14 +358,14 @@
 <section class="features">
   <div class="features-inner">
     <p class="features-label reveal">Key Capabilities</p>
-    <h2 class="features-title reveal">Every feature, designed<br>to convert browsers into buyers.</h2>
+    <h2 class="features-title reveal">See it. Build it. Buy it.</h2>
     <div class="feat-grid">
-      <div class="feat-card reveal"><div class="feat-icon"><i data-lucide="brain"></i></div><h4>AI Advisory Engine</h4><p>Structured inputs capture use case, budget, and experience level to generate expert-quality recommendations automatically.</p></div>
-      <div class="feat-card reveal"><div class="feat-icon"><i data-lucide="filter"></i></div><h4>Progressive Filtering</h4><p>Each selection narrows the next. Pick a body, see only compatible lenses. Pick a lens, see only matching filters.</p></div>
-      <div class="feat-card reveal"><div class="feat-icon"><i data-lucide="cable"></i></div><h4>Adapter Resolution</h4><p>Incompatible selections aren't blocked &mdash; the system suggests the right adapter with pricing and availability.</p></div>
-      <div class="feat-card reveal"><div class="feat-icon"><i data-lucide="scan-barcode"></i></div><h4>Staff Interface</h4><p>Barcode scanning, real-time inventory, and side-by-side comparisons for consistent in-store consultations.</p></div>
-      <div class="feat-card reveal"><div class="feat-icon"><i data-lucide="rotate-3d"></i></div><h4>3D / AR Preview</h4><p>Rotatable 3D rig preview with browser-based AR mode. No app download required. See it before you buy it.</p></div>
-      <div class="feat-card reveal"><div class="feat-icon"><i data-lucide="package-check"></i></div><h4>One-Click Bundles</h4><p>"Add Complete Rig to Cart" drives average order value from S$250 single items to S$450+ complete kits.</p></div>
+      <div class="feat-card reveal"><div class="feat-icon"><i data-lucide="rotate-3d"></i></div><h4>3D Rig Preview</h4><p>Rotatable 3D visualization shows the complete camera setup. Swap lenses and accessories in real time to see exactly what you're buying.</p></div>
+      <div class="feat-card reveal"><div class="feat-icon"><i data-lucide="scan"></i></div><h4>Browser-Based AR</h4><p>Point your phone camera to see the rig in your hands &mdash; no app download required. Powered by WebXR for instant access.</p></div>
+      <div class="feat-card reveal"><div class="feat-icon"><i data-lucide="shield-check"></i></div><h4>Compatibility Matrix</h4><p>Every component is checked against the selected body. Mount type, filter thread, stabilization, and weather sealing &mdash; verified instantly.</p></div>
+      <div class="feat-card reveal"><div class="feat-icon"><i data-lucide="git-merge"></i></div><h4>Visual Rig Builder</h4><p>Step-by-step guided flow: pick a body, choose lenses, add accessories. Each step narrows options to only what's compatible.</p></div>
+      <div class="feat-card reveal"><div class="feat-icon"><i data-lucide="package-check"></i></div><h4>One-Click Bundles</h4><p>"Add Complete Rig to Cart" drives average order value from S$250 single items to S$450+ complete kits with bundle pricing.</p></div>
+      <div class="feat-card reveal"><div class="feat-icon"><i data-lucide="sparkles"></i></div><h4>AI Quick Pick</h4><p>Don't know where to start? The gear advisor suggests a top match based on your shooting style and budget &mdash; one tap to load it into the sandbox.</p></div>
     </div>
   </div>
 </section>
@@ -354,12 +396,12 @@
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
   const lenses = {
-    xf1680:  { name: 'XF 16-80mm f/4 OIS', mount: 'X-Mount', filter: '72mm', stab: 'OIS + IBIS', weather: 'Partial', price: 799, status: 'ok', text: '+ XF 16-80mm f/4 OIS' },
-    xf23:    { name: 'XF 23mm f/1.4 R LM WR', mount: 'X-Mount', filter: '62mm', stab: 'IBIS Only', weather: 'Full', price: 899, status: 'ok', text: '+ XF 23mm f/1.4 R LM WR' },
-    xf56:    { name: 'XF 56mm f/1.2 R WR', mount: 'X-Mount', filter: '67mm', stab: 'IBIS Only', weather: 'Full', price: 999, status: 'ok', text: '+ XF 56mm f/1.2 R WR' },
-    xf1855:  { name: 'XF 18-55mm f/2.8-4', mount: 'X-Mount', filter: '58mm', stab: 'OIS + IBIS', weather: 'None', price: 699, status: 'ok', text: '+ XF 18-55mm f/2.8-4' },
-    canon50: { name: 'Canon EF 50mm + Adapter', mount: 'EF (Adapter)', filter: '49mm', stab: 'None', weather: 'None', price: 199, status: 'warn', text: '+ Canon EF 50mm (via Fringer)' },
-    sigma:   { name: 'Sigma 18-35mm (Incompatible)', mount: 'Canon EF-S', filter: '72mm', stab: 'None', weather: 'None', price: 0, status: 'bad', text: '✕ Sigma 18-35mm DC (Incompatible)' },
+    xf1680:  { name: 'XF 16-80mm f/4 OIS', mount: 'X-Mount', filter: '72mm', stab: 'OIS + IBIS', weather: 'Partial', price: 799, status: 'ok', text: '+ XF 16-80mm f/4 OIS', insight: 'Great pick for landscape. The XF 16-80mm offers versatile zoom range with OIS \u2014 ideal for travel and outdoor shooting.' },
+    xf23:    { name: 'XF 23mm f/1.4 R LM WR', mount: 'X-Mount', filter: '62mm', stab: 'IBIS Only', weather: 'Full', price: 899, status: 'ok', text: '+ XF 23mm f/1.4 R LM WR', insight: 'Excellent street lens. The f/1.4 aperture gives beautiful bokeh and low-light performance with a classic 35mm equivalent field of view.' },
+    xf56:    { name: 'XF 56mm f/1.2 R WR', mount: 'X-Mount', filter: '67mm', stab: 'IBIS Only', weather: 'Full', price: 999, status: 'ok', text: '+ XF 56mm f/1.2 R WR', insight: 'The portrait king. f/1.2 delivers stunning subject separation. Weather-resistant build pairs perfectly with the X-T5 body.' },
+    xf1855:  { name: 'XF 18-55mm f/2.8-4', mount: 'X-Mount', filter: '58mm', stab: 'OIS + IBIS', weather: 'None', price: 699, status: 'ok', text: '+ XF 18-55mm f/2.8-4', insight: 'Solid starter zoom at a great price. Note: no weather sealing, so consider a UV filter for outdoor protection.' },
+    canon50: { name: 'Canon EF 50mm + Adapter', mount: 'EF (Adapter)', filter: '49mm', stab: 'None', weather: 'None', price: 199, status: 'warn', text: '+ Canon EF 50mm (via Fringer)', insight: 'Budget option via Fringer adapter. AF will be slower than native X-mount lenses. Consider upgrading to the XF 56mm for best results.' },
+    sigma:   { name: 'Sigma 18-35mm (Incompatible)', mount: 'Canon EF-S', filter: '72mm', stab: 'None', weather: 'None', price: 0, status: 'bad', text: '✕ Sigma 18-35mm DC (Incompatible)', insight: 'This lens uses the Canon EF-S mount and cannot be adapted to X-Mount. Try the XF 16-80mm f/4 for a similar zoom range.' },
   };
 
   let selectedLens = 'xf1680';
@@ -405,6 +447,11 @@
     const mw = document.getElementById('matWeather');
     setIcon(mw, lens.weather === 'Full' ? 'check' : 'alert-triangle', lens.weather === 'Full' ? 'ok' : 'warn');
     mw.innerHTML += lens.weather;
+
+    // AI Insight
+    const ai = document.getElementById('aiInsight');
+    ai.className = 'ai-insight' + (lens.status === 'warn' ? ' warn' : lens.status === 'bad' ? ' bad' : '');
+    document.getElementById('aiInsightText').textContent = lens.insight;
 
     document.getElementById('priceLensName').textContent = lens.name;
     document.getElementById('priceLensVal').textContent = lens.price > 0 ? 'S$' + lens.price : 'N/A';
