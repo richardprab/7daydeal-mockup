@@ -43,7 +43,18 @@
 
     /* App Section */
     .app-section { padding: 0 2rem 6rem; margin-top: -3rem; position: relative; z-index: 2; }
-    .app-container { max-width: 1200px; margin: 0 auto; background: var(--white); border-radius: 24px; box-shadow: 0 40px 120px rgba(0,0,0,0.12), 0 0 0 0.5px rgba(0,0,0,0.06); overflow: hidden; }
+    .app-outer { max-width: 1200px; margin: 0 auto; }
+
+    /* Mode switcher — outside mockup */
+    .mode-switcher { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 1.25rem; }
+    .mode-switcher-label { font-size: 0.68rem; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; }
+    .mode-tabs { display: flex; gap: 4px; background: rgba(0,0,0,0.05); border-radius: 10px; padding: 3px; }
+    .mode-tab { padding: 8px 18px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; text-align: center; cursor: pointer; transition: all 0.25s; color: var(--gray); user-select: none; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .mode-tab i { width: 14px; height: 14px; }
+    .mode-tab.active.customer-tab { background: var(--green); color: white; box-shadow: 0 2px 8px rgba(27,140,90,0.25); }
+    .mode-tab.active.staff-tab { background: var(--yellow); color: white; box-shadow: 0 2px 8px rgba(212,160,23,0.25); }
+
+    .app-container { background: var(--white); border-radius: 24px; box-shadow: 0 40px 120px rgba(0,0,0,0.12), 0 0 0 0.5px rgba(0,0,0,0.06); overflow: hidden; }
     .browser-bar { display: flex; align-items: center; gap: 6px; padding: 14px 20px; background: #FAFAFA; border-bottom: 0.5px solid rgba(0,0,0,0.06); }
     .bd { width: 12px; height: 12px; border-radius: 50%; }
     .bd-r { background: #FF5F57; } .bd-y { background: #FFBD2E; } .bd-g { background: #28CA41; }
@@ -51,16 +62,12 @@
     .browser-url i { width: 12px; height: 12px; color: var(--gray-light); }
 
     /* App Layout */
-    .app { display: grid; grid-template-columns: 220px 1fr; min-height: 580px; }
+    .app { display: grid; grid-template-columns: 200px 1fr; min-height: 580px; }
 
     /* Sidebar */
     .sidebar { background: #FAFAFA; border-right: 0.5px solid rgba(0,0,0,0.06); padding: 20px 14px; display: flex; flex-direction: column; }
     .sidebar-logo { font-weight: 800; font-size: 0.95rem; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 0.5px solid rgba(0,0,0,0.06); }
     .sidebar-logo .red { color: var(--red); }
-    .mode-tabs { display: flex; gap: 4px; background: rgba(0,0,0,0.04); border-radius: 10px; padding: 3px; margin-bottom: 20px; }
-    .mode-tab { flex: 1; padding: 8px 6px; border-radius: 8px; font-size: 0.72rem; font-weight: 600; text-align: center; cursor: pointer; transition: all 0.25s; color: var(--gray); user-select: none; display: flex; align-items: center; justify-content: center; gap: 5px; }
-    .mode-tab i { width: 13px; height: 13px; }
-    .mode-tab.active { background: white; color: var(--black); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
     .side-section { margin-bottom: 16px; }
     .side-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gray); margin-bottom: 8px; }
     .side-nav { list-style: none; display: flex; flex-direction: column; gap: 2px; }
@@ -85,10 +92,24 @@
     .panel.active { display: block; }
 
     /* Customer Panel */
-    .advisor-flow { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .customer-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .customer-left { display: flex; flex-direction: column; gap: 16px; }
     .advisor-card { background: var(--gray-bg); border-radius: 16px; padding: 20px; }
     .ac-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--gray); margin-bottom: 12px; display: flex; align-items: center; gap: 5px; }
     .ac-label i { width: 13px; height: 13px; }
+
+    /* Inline 3D Preview */
+    .inline-preview { background: linear-gradient(180deg, #F0F0F2 0%, #E8E8ED 100%); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+    .inline-preview .vp-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gray); margin-bottom: 12px; display: flex; align-items: center; gap: 5px; }
+    .inline-preview .vp-label i { width: 12px; height: 12px; }
+    .inline-camera { width: 220px; height: 170px; transition: all 0.4s cubic-bezier(0.25,0.1,0.25,1); }
+    .inline-preview .compat-badge { display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; border-radius: 980px; font-size: 0.7rem; font-weight: 600; margin-top: 12px; }
+    .inline-preview .compat-badge i { width: 13px; height: 13px; }
+    .inline-preview .compat-badge.ok { background: rgba(27,140,90,0.12); color: #157A48; }
+    .inline-ai { background: rgba(27,140,90,0.04); border: 0.5px solid rgba(27,140,90,0.12); border-radius: 10px; padding: 10px 12px; margin-top: 12px; width: 100%; }
+    .inline-ai-header { font-size: 0.58rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--green); margin-bottom: 4px; display: flex; align-items: center; gap: 4px; }
+    .inline-ai-header i { width: 10px; height: 10px; }
+    .inline-ai p { font-size: 0.68rem; color: var(--gray-dark); line-height: 1.45; }
     .question-group { margin-bottom: 14px; }
     .question-group:last-child { margin-bottom: 0; }
     .q-label { font-size: 0.78rem; font-weight: 600; margin-bottom: 8px; }
@@ -121,8 +142,9 @@
     .rec-score .lbl { font-size: 0.6rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; }
 
     /* Staff Panel */
-    .staff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .staff-layout { display: grid; grid-template-columns: 280px 1fr; gap: 16px; }
     .staff-card { background: var(--gray-bg); border-radius: 16px; padding: 20px; }
+    .staff-right { display: flex; flex-direction: column; gap: 16px; }
     .scan-input { display: flex; align-items: center; gap: 8px; background: white; border: 1px solid rgba(0,0,0,0.08); border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; }
     .scan-input i { width: 16px; height: 16px; color: var(--gray-light); flex-shrink: 0; }
     .scan-input span { font-size: 0.78rem; color: var(--gray); }
@@ -137,19 +159,42 @@
     .sr-stat .val.yellow { color: #9A7209; }
     .sr-stat .val.red { color: var(--red); }
     .sr-stat .lbl { font-size: 0.58rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
-
-    /* Compare table */
-    .compare-tbl { width: 100%; font-size: 0.75rem; border-collapse: collapse; }
-    .compare-tbl th { text-align: left; padding: 6px 8px; font-size: 0.6rem; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 0.5px solid rgba(0,0,0,0.06); background: white; }
-    .compare-tbl td { padding: 7px 8px; border-bottom: 0.5px solid rgba(0,0,0,0.03); }
-    .compare-tbl .bold { font-weight: 600; }
-    .compare-tbl .winner { color: #157A48; font-weight: 600; }
     .inv-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 0.5px solid rgba(0,0,0,0.04); }
     .inv-row:last-child { border-bottom: none; }
     .inv-name { font-size: 0.78rem; font-weight: 600; flex: 1; }
     .inv-bar { width: 60px; height: 5px; background: rgba(0,0,0,0.06); border-radius: 3px; overflow: hidden; }
     .inv-bar-fill { height: 100%; border-radius: 3px; }
     .inv-count { font-size: 0.72rem; font-weight: 700; width: 32px; text-align: right; }
+
+    /* Compatibility Matrix */
+    .compat-matrix { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .cm-tbl { width: 100%; font-size: 0.7rem; border-collapse: collapse; min-width: 420px; }
+    .cm-tbl th { padding: 6px 8px; font-size: 0.6rem; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 0.5px solid rgba(0,0,0,0.06); background: white; text-align: center; }
+    .cm-tbl th:first-child { text-align: left; }
+    .cm-tbl td { padding: 6px 8px; border-bottom: 0.5px solid rgba(0,0,0,0.03); text-align: center; }
+    .cm-tbl td:first-child { text-align: left; font-weight: 600; font-size: 0.72rem; }
+    .cm-tbl tr:hover { background: rgba(0,0,0,0.01); }
+    .cm-tbl tr.highlight { background: rgba(196,30,36,0.03); }
+    .cm-dot { width: 20px; height: 20px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; font-size: 0; }
+    .cm-dot i { width: 13px; height: 13px; }
+    .cm-dot.ok { background: rgba(27,140,90,0.1); color: #157A48; }
+    .cm-dot.warn { background: rgba(212,160,23,0.1); color: #9A7209; }
+    .cm-dot.bad { background: rgba(196,30,36,0.08); color: var(--red); }
+    .cm-dot.na { background: rgba(0,0,0,0.03); color: var(--gray-light); }
+    .cm-legend { display: flex; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
+    .cm-legend-item { display: flex; align-items: center; gap: 5px; font-size: 0.62rem; color: var(--gray); font-weight: 500; }
+    .cm-legend-dot { width: 8px; height: 8px; border-radius: 3px; }
+
+    /* Advisory notes */
+    .advisory-notes { display: flex; flex-direction: column; gap: 8px; }
+    .adv-note { background: white; border-radius: 10px; padding: 10px 12px; display: flex; gap: 10px; align-items: flex-start; }
+    .adv-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .adv-icon i { width: 14px; height: 14px; }
+    .adv-icon.green { background: rgba(27,140,90,0.08); color: #157A48; }
+    .adv-icon.yellow { background: rgba(212,160,23,0.08); color: #9A7209; }
+    .adv-icon.red { background: rgba(196,30,36,0.08); color: var(--red); }
+    .adv-text { font-size: 0.72rem; line-height: 1.5; color: var(--gray-dark); }
+    .adv-text strong { color: var(--black); }
 
     /* Features */
     .features { padding: 6rem 2rem; background: var(--gray-bg); }
@@ -206,7 +251,7 @@
       .app { grid-template-columns: 1fr; }
       .sidebar { border-right: none; border-bottom: 0.5px solid rgba(0,0,0,0.06); padding: 16px 14px; }
       .sidebar-logo { display: none; }
-      .advisor-flow, .staff-grid { grid-template-columns: 1fr; }
+      .customer-layout, .staff-layout { grid-template-columns: 1fr; }
       .feat-grid { grid-template-columns: 1fr; }
       .feas-grid { grid-template-columns: 1fr 1fr; }
     }
@@ -259,94 +304,129 @@
 </section>
 
 <section class="app-section">
-  <div class="app-container">
-    <div class="browser-bar">
-      <div class="bd bd-r"></div><div class="bd bd-y"></div><div class="bd bd-g"></div>
-      <div class="browser-url"><i data-lucide="lock"></i> 7daydeal.com/advisor</div>
-    </div>
-    <div class="app">
-      <div class="sidebar">
-        <div class="sidebar-logo"><span class="red">7Day</span>Deal</div>
-        <div class="mode-tabs">
-          <div class="mode-tab active" data-mode="customer"><i data-lucide="user"></i> Customer</div>
-          <div class="mode-tab" data-mode="staff"><i data-lucide="headset"></i> Staff</div>
-        </div>
-        <div class="side-section">
-          <div class="side-label">Navigation</div>
-          <ul class="side-nav" id="sideNav">
-            <li class="side-nav-item active"><i data-lucide="sparkles"></i> Recommendations<span class="side-badge green">AI</span></li>
-            <li class="side-nav-item"><i data-lucide="filter"></i> Browse &amp; Filter</li>
-            <li class="side-nav-item"><i data-lucide="cable"></i> Compatibility</li>
-            <li class="side-nav-item"><i data-lucide="heart"></i> Saved Items</li>
-          </ul>
-        </div>
+  <div class="app-outer">
+    <div class="mode-switcher">
+      <span class="mode-switcher-label">View as</span>
+      <div class="mode-tabs">
+        <div class="mode-tab active customer-tab" data-mode="customer"><i data-lucide="user"></i> Customer</div>
+        <div class="mode-tab staff-tab" data-mode="staff"><i data-lucide="headset"></i> Staff</div>
       </div>
-
-      <div class="main">
-        <!-- Customer Panel -->
-        <div class="panel active" id="panelCustomer">
-          <div class="main-header">
-            <h2>AI Gear Recommendations</h2>
-            <span class="mode-indicator customer"><i data-lucide="user"></i> Customer Mode</span>
-          </div>
-          <div class="advisor-flow">
-            <div class="advisor-card">
-              <div class="ac-label"><i data-lucide="clipboard-list"></i> Your Preferences</div>
-              <div class="question-group">
-                <div class="q-label">What are you shooting?</div>
-                <div class="q-options">
-                  <span class="q-opt">Portraits</span>
-                  <span class="q-opt selected">Landscape</span>
-                  <span class="q-opt">Street</span>
-                  <span class="q-opt">Wildlife</span>
-                  <span class="q-opt">Video</span>
-                </div>
-              </div>
-              <div class="question-group">
-                <div class="q-label">Experience level?</div>
-                <div class="q-options">
-                  <span class="q-opt">Beginner</span>
-                  <span class="q-opt selected-green">Intermediate</span>
-                  <span class="q-opt">Professional</span>
-                </div>
-              </div>
-              <div class="question-group">
-                <div class="q-label">Budget range</div>
-                <div class="budget-bar"><div class="budget-fill"></div></div>
-                <div class="budget-labels"><span>S$500</span><span>S$2,750</span><span>S$5,000</span></div>
-              </div>
-            </div>
-            <div class="advisor-card">
-              <div class="ac-label"><i data-lucide="sparkles"></i> AI Recommendations</div>
-              <div class="rec-list">
-                <div class="rec-item top">
-                  <div class="rec-rank first">1</div>
-                  <div class="rec-info">
-                    <div class="rec-name">Fujifilm X-T5 + XF 16-80mm</div>
-                    <div class="rec-detail">Best for landscape &middot; Weather sealed &middot; 40MP</div>
-                  </div>
-                  <div class="rec-score"><div class="pct high">94%</div><div class="lbl">Match</div></div>
-                </div>
-                <div class="rec-item">
-                  <div class="rec-rank second">2</div>
-                  <div class="rec-info">
-                    <div class="rec-name">Sony A7C II + FE 28-70mm</div>
-                    <div class="rec-detail">Compact full-frame &middot; Great AF &middot; 33MP</div>
-                  </div>
-                  <div class="rec-score"><div class="pct mid">87%</div><div class="lbl">Match</div></div>
-                </div>
-                <div class="rec-item">
-                  <div class="rec-rank third">3</div>
-                  <div class="rec-info">
-                    <div class="rec-name">Canon EOS R8 + RF 24-105mm</div>
-                    <div class="rec-detail">Versatile &middot; Lightweight &middot; 24.2MP</div>
-                  </div>
-                  <div class="rec-score"><div class="pct low">79%</div><div class="lbl">Match</div></div>
-                </div>
-              </div>
-            </div>
+    </div>
+    <div class="app-container">
+      <div class="browser-bar">
+        <div class="bd bd-r"></div><div class="bd bd-y"></div><div class="bd bd-g"></div>
+        <div class="browser-url"><i data-lucide="lock"></i> <span id="browserUrl">7daydeal.com/advisor</span></div>
+      </div>
+      <div class="app">
+        <div class="sidebar">
+          <div class="sidebar-logo"><span class="red">7Day</span>Deal</div>
+          <div class="side-section">
+            <div class="side-label">Navigation</div>
+            <ul class="side-nav" id="sideNav">
+              <li class="side-nav-item active"><i data-lucide="sparkles"></i> Recommendations<span class="side-badge green">AI</span></li>
+              <li class="side-nav-item"><i data-lucide="filter"></i> Browse &amp; Filter</li>
+              <li class="side-nav-item"><i data-lucide="cable"></i> Compatibility</li>
+              <li class="side-nav-item"><i data-lucide="heart"></i> Saved Items</li>
+            </ul>
           </div>
         </div>
+
+        <div class="main">
+          <!-- Customer Panel -->
+          <div class="panel active" id="panelCustomer">
+            <div class="main-header">
+              <h2>AI Gear Recommendations</h2>
+              <span class="mode-indicator customer"><i data-lucide="user"></i> Customer</span>
+            </div>
+            <div class="customer-layout">
+              <div class="customer-left">
+                <div class="advisor-card">
+                  <div class="ac-label"><i data-lucide="clipboard-list"></i> Your Preferences</div>
+                  <div class="question-group">
+                    <div class="q-label">What are you shooting?</div>
+                    <div class="q-options">
+                      <span class="q-opt">Portraits</span>
+                      <span class="q-opt selected">Landscape</span>
+                      <span class="q-opt">Street</span>
+                      <span class="q-opt">Wildlife</span>
+                      <span class="q-opt">Video</span>
+                    </div>
+                  </div>
+                  <div class="question-group">
+                    <div class="q-label">Experience level?</div>
+                    <div class="q-options">
+                      <span class="q-opt">Beginner</span>
+                      <span class="q-opt selected-green">Intermediate</span>
+                      <span class="q-opt">Professional</span>
+                    </div>
+                  </div>
+                  <div class="question-group">
+                    <div class="q-label">Budget range</div>
+                    <div class="budget-bar"><div class="budget-fill"></div></div>
+                    <div class="budget-labels"><span>S$500</span><span>S$2,750</span><span>S$5,000</span></div>
+                  </div>
+                </div>
+                <div class="advisor-card">
+                  <div class="ac-label"><i data-lucide="sparkles"></i> Top Matches</div>
+                  <div class="rec-list">
+                    <div class="rec-item top" data-rec="xt5">
+                      <div class="rec-rank first">1</div>
+                      <div class="rec-info">
+                        <div class="rec-name">Fujifilm X-T5 + XF 16-80mm</div>
+                        <div class="rec-detail">Best for landscape &middot; Weather sealed &middot; 40MP</div>
+                      </div>
+                      <div class="rec-score"><div class="pct high">94%</div><div class="lbl">Match</div></div>
+                    </div>
+                    <div class="rec-item" data-rec="a7c">
+                      <div class="rec-rank second">2</div>
+                      <div class="rec-info">
+                        <div class="rec-name">Sony A7C II + FE 28-70mm</div>
+                        <div class="rec-detail">Compact full-frame &middot; Great AF &middot; 33MP</div>
+                      </div>
+                      <div class="rec-score"><div class="pct mid">87%</div><div class="lbl">Match</div></div>
+                    </div>
+                    <div class="rec-item" data-rec="r8">
+                      <div class="rec-rank third">3</div>
+                      <div class="rec-info">
+                        <div class="rec-name">Canon EOS R8 + RF 24-105mm</div>
+                        <div class="rec-detail">Versatile &middot; Lightweight &middot; 24.2MP</div>
+                      </div>
+                      <div class="rec-score"><div class="pct low">79%</div><div class="lbl">Match</div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Inline 3D Preview -->
+              <div class="inline-preview">
+                <div class="vp-label"><i data-lucide="rotate-3d"></i> 3D Preview</div>
+                <svg class="inline-camera" id="inlineCamera" viewBox="0 0 340 260">
+                  <rect x="50" y="55" width="240" height="150" rx="14" fill="#2D2D2D"/>
+                  <rect x="120" y="30" width="100" height="35" rx="8" fill="#333"/>
+                  <rect x="148" y="32" width="44" height="5" rx="2" fill="#555"/>
+                  <rect x="50" y="55" width="28" height="110" rx="8" fill="#383838"/>
+                  <rect x="55" y="62" width="18" height="96" rx="5" fill="#2A2A2A"/>
+                  <rect x="72" y="45" width="30" height="14" rx="4" fill="#444"/>
+                  <rect x="238" y="45" width="30" height="14" rx="4" fill="#444"/>
+                  <circle cx="88" cy="48" r="6" fill="#555"/>
+                  <text x="170" y="85" text-anchor="middle" font-size="10" font-weight="700" fill="#777" font-family="Inter" id="brandLabel">FUJIFILM</text>
+                  <circle cx="170" cy="135" r="56" fill="#222" stroke="#555" stroke-width="2"/>
+                  <circle cx="170" cy="135" r="48" fill="#1A1A1A" stroke="#444" stroke-width="1"/>
+                  <circle cx="170" cy="135" r="36" fill="#111"/>
+                  <circle cx="170" cy="135" r="22" fill="#0A0A0A" stroke="#333" stroke-width="0.5"/>
+                  <circle cx="170" cy="135" r="14" fill="#1a1a3a" opacity="0.6"/>
+                  <ellipse cx="167" cy="131" rx="5" ry="4" fill="rgba(255,255,255,0.08)"/>
+                  <text x="170" y="195" text-anchor="middle" font-size="9" fill="#555" font-family="Inter" id="bodyLabel">X-T5</text>
+                  <text x="170" y="225" text-anchor="middle" font-size="10" font-weight="600" fill="#1B8C5A" font-family="Inter" id="lensLabel">+ XF 16-80mm f/4 OIS</text>
+                </svg>
+                <div class="compat-badge ok"><i data-lucide="check-circle-2"></i> <span id="compatText">All items compatible</span></div>
+                <div class="inline-ai">
+                  <div class="inline-ai-header"><i data-lucide="sparkles"></i> AI Insight</div>
+                  <p id="inlineAiText">Great pick for landscape. The XF 16-80mm offers versatile zoom with OIS &mdash; ideal for travel and outdoor shooting.</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
         <!-- Staff Panel -->
         <div class="panel" id="panelStaff">
@@ -354,7 +434,8 @@
             <h2>Staff Consultation Tools</h2>
             <span class="mode-indicator staff"><i data-lucide="headset"></i> Staff Mode</span>
           </div>
-          <div class="staff-grid">
+          <div class="staff-layout">
+            <!-- Left: Lookup + Inventory -->
             <div class="staff-card">
               <div class="ac-label"><i data-lucide="scan-barcode"></i> Product Lookup</div>
               <div class="scan-input">
@@ -396,25 +477,117 @@
                 </div>
               </div>
             </div>
-            <div class="staff-card">
-              <div class="ac-label"><i data-lucide="columns-2"></i> Side-by-Side Comparison</div>
-              <table class="compare-tbl">
-                <thead><tr><th>Spec</th><th>X-T5</th><th>A7C II</th></tr></thead>
-                <tbody>
-                  <tr><td class="bold">Price</td><td class="winner">S$1,899</td><td>S$1,999</td></tr>
-                  <tr><td class="bold">Sensor</td><td class="winner">40.2 MP APS-C</td><td>33 MP FF</td></tr>
-                  <tr><td class="bold">Weight</td><td>557g</td><td class="winner">514g</td></tr>
-                  <tr><td class="bold">IBIS</td><td class="winner">7-stop</td><td>5-stop</td></tr>
-                  <tr><td class="bold">Video</td><td>6.2K 30p</td><td class="winner">4K 60p S-Log</td></tr>
-                  <tr><td class="bold">Weather Seal</td><td class="winner">Yes</td><td>No</td></tr>
-                  <tr><td class="bold">Margin</td><td class="winner">28%</td><td>22%</td></tr>
-                </tbody>
-              </table>
+
+            <!-- Right: Compatibility Matrix + Advisory -->
+            <div class="staff-right">
+              <div class="staff-card">
+                <div class="ac-label"><i data-lucide="grid-3x3"></i> Full Compatibility Matrix</div>
+                <div class="compat-matrix">
+                  <table class="cm-tbl">
+                    <thead>
+                      <tr>
+                        <th>Accessory</th>
+                        <th>X-T5</th>
+                        <th>A7C II</th>
+                        <th>EOS R8</th>
+                        <th>X100VI</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="highlight">
+                        <td>XF 16-80mm f/4</td>
+                        <td><span class="cm-dot ok"><i data-lucide="check"></i></span></td>
+                        <td><span class="cm-dot bad"><i data-lucide="x"></i></span></td>
+                        <td><span class="cm-dot bad"><i data-lucide="x"></i></span></td>
+                        <td><span class="cm-dot na"><i data-lucide="minus"></i></span></td>
+                      </tr>
+                      <tr>
+                        <td>XF 23mm f/1.4</td>
+                        <td><span class="cm-dot ok"><i data-lucide="check"></i></span></td>
+                        <td><span class="cm-dot bad"><i data-lucide="x"></i></span></td>
+                        <td><span class="cm-dot bad"><i data-lucide="x"></i></span></td>
+                        <td><span class="cm-dot na"><i data-lucide="minus"></i></span></td>
+                      </tr>
+                      <tr>
+                        <td>FE 28-70mm f/2</td>
+                        <td><span class="cm-dot bad"><i data-lucide="x"></i></span></td>
+                        <td><span class="cm-dot ok"><i data-lucide="check"></i></span></td>
+                        <td><span class="cm-dot bad"><i data-lucide="x"></i></span></td>
+                        <td><span class="cm-dot na"><i data-lucide="minus"></i></span></td>
+                      </tr>
+                      <tr>
+                        <td>RF 24-105mm f/4</td>
+                        <td><span class="cm-dot bad"><i data-lucide="x"></i></span></td>
+                        <td><span class="cm-dot bad"><i data-lucide="x"></i></span></td>
+                        <td><span class="cm-dot ok"><i data-lucide="check"></i></span></td>
+                        <td><span class="cm-dot na"><i data-lucide="minus"></i></span></td>
+                      </tr>
+                      <tr>
+                        <td>Canon EF 50mm f/1.8</td>
+                        <td><span class="cm-dot warn"><i data-lucide="alert-triangle"></i></span></td>
+                        <td><span class="cm-dot warn"><i data-lucide="alert-triangle"></i></span></td>
+                        <td><span class="cm-dot warn"><i data-lucide="alert-triangle"></i></span></td>
+                        <td><span class="cm-dot na"><i data-lucide="minus"></i></span></td>
+                      </tr>
+                      <tr>
+                        <td>72mm UV Filter</td>
+                        <td><span class="cm-dot ok"><i data-lucide="check"></i></span></td>
+                        <td><span class="cm-dot ok"><i data-lucide="check"></i></span></td>
+                        <td><span class="cm-dot bad"><i data-lucide="x"></i></span></td>
+                        <td><span class="cm-dot na"><i data-lucide="minus"></i></span></td>
+                      </tr>
+                      <tr>
+                        <td>Peak Design Strap</td>
+                        <td><span class="cm-dot ok"><i data-lucide="check"></i></span></td>
+                        <td><span class="cm-dot ok"><i data-lucide="check"></i></span></td>
+                        <td><span class="cm-dot ok"><i data-lucide="check"></i></span></td>
+                        <td><span class="cm-dot ok"><i data-lucide="check"></i></span></td>
+                      </tr>
+                      <tr>
+                        <td>Fringer EF-FX Pro</td>
+                        <td><span class="cm-dot ok"><i data-lucide="check"></i></span></td>
+                        <td><span class="cm-dot na"><i data-lucide="minus"></i></span></td>
+                        <td><span class="cm-dot na"><i data-lucide="minus"></i></span></td>
+                        <td><span class="cm-dot na"><i data-lucide="minus"></i></span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="cm-legend">
+                  <div class="cm-legend-item"><div class="cm-legend-dot" style="background:#1B8C5A"></div> Native fit</div>
+                  <div class="cm-legend-item"><div class="cm-legend-dot" style="background:#D4A017"></div> Adapter needed</div>
+                  <div class="cm-legend-item"><div class="cm-legend-dot" style="background:#C41E24"></div> Incompatible</div>
+                  <div class="cm-legend-item"><div class="cm-legend-dot" style="background:#d2d2d7"></div> N/A (fixed lens)</div>
+                </div>
+              </div>
+
+              <div class="staff-card">
+                <div class="ac-label"><i data-lucide="message-square"></i> AI Advisory Notes</div>
+                <div class="advisory-notes">
+                  <div class="adv-note">
+                    <div class="adv-icon green"><i data-lucide="trending-up"></i></div>
+                    <div class="adv-text"><strong>Upsell opportunity:</strong> X-T5 customers who buy the XF 16-80mm have a 62% attach rate for the 72mm UV filter. Suggest as a bundle add-on.</div>
+                  </div>
+                  <div class="adv-note">
+                    <div class="adv-icon yellow"><i data-lucide="alert-triangle"></i></div>
+                    <div class="adv-text"><strong>Adapter advisory:</strong> Canon EF 50mm requires the Fringer EF-FX Pro (S$289). Total cost approaches native XF 56mm f/1.2 &mdash; recommend the native lens instead.</div>
+                  </div>
+                  <div class="adv-note">
+                    <div class="adv-icon red"><i data-lucide="shield-alert"></i></div>
+                    <div class="adv-text"><strong>Warranty flag:</strong> BJ-Supply Canon EOS R8 units have a 12.3% failure rate. Recommend steering customers to JP-Direct or HK-Import sourced units.</div>
+                  </div>
+                  <div class="adv-note">
+                    <div class="adv-icon green"><i data-lucide="package-check"></i></div>
+                    <div class="adv-text"><strong>Stock alert:</strong> XF 23mm f/1.4 is at 2 units (below reorder point). If customer wants this lens, prioritize the sale &mdash; next shipment ETA 14 days.</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
   </div>
 </section>
 
@@ -454,9 +627,9 @@
         <span class="feat-audience staff-only"><i data-lucide="headset" style="width:11px;height:11px"></i> Staff Only</span>
       </div>
       <div class="feat-card reveal">
-        <div class="feat-icon"><i data-lucide="columns-2"></i></div>
-        <h4>Side-by-Side Compare</h4>
-        <p>Staff pull up any two products for instant spec and margin comparison, enabling confident in-store consultations.</p>
+        <div class="feat-icon"><i data-lucide="grid-3x3"></i></div>
+        <h4>Compatibility Matrix</h4>
+        <p>Full cross-reference grid of every body, lens, adapter, and accessory. Staff see at a glance what fits, what needs adapters, and what to avoid.</p>
         <span class="feat-audience staff-only"><i data-lucide="headset" style="width:11px;height:11px"></i> Staff Only</span>
       </div>
     </div>
@@ -491,6 +664,7 @@
   // Mode tab switching
   const modeTabs = document.querySelectorAll('.mode-tab');
   const panels = { customer: 'panelCustomer', staff: 'panelStaff' };
+  const urls = { customer: '7daydeal.com/advisor', staff: 'staff.7daydeal.com/console' };
   const sideNavConfigs = {
     customer: [
       { icon: 'sparkles', label: 'Recommendations', badge: 'AI', badgeClass: 'green' },
@@ -500,9 +674,9 @@
     ],
     staff: [
       { icon: 'scan-barcode', label: 'Product Lookup', badge: 'Scan', badgeClass: 'yellow' },
-      { icon: 'columns-2', label: 'Compare' },
+      { icon: 'grid-3x3', label: 'Compatibility Matrix' },
+      { icon: 'message-square', label: 'AI Advisory' },
       { icon: 'package', label: 'Inventory' },
-      { icon: 'clipboard-list', label: 'Customer Queue' },
     ]
   };
 
@@ -513,6 +687,7 @@
       const mode = tab.dataset.mode;
       Object.values(panels).forEach(p => document.getElementById(p).classList.remove('active'));
       document.getElementById(panels[mode]).classList.add('active');
+      document.getElementById('browserUrl').textContent = urls[mode];
 
       // Update sidebar nav
       const nav = document.getElementById('sideNav');
@@ -521,6 +696,26 @@
         `<li class="side-nav-item${i === 0 ? ' active' : ''}"><i data-lucide="${item.icon}"></i> ${item.label}${item.badge ? `<span class="side-badge ${item.badgeClass}">${item.badge}</span>` : ''}</li>`
       ).join('');
       lucide.createIcons({ nodes: nav.querySelectorAll('[data-lucide]') });
+    });
+  });
+
+  // Recommendation click → update 3D preview
+  const recData = {
+    xt5: { brand: 'FUJIFILM', body: 'X-T5', lens: '+ XF 16-80mm f/4 OIS', insight: 'Great pick for landscape. The XF 16-80mm offers versatile zoom with OIS \u2014 ideal for travel and outdoor shooting.', compat: 'All items compatible' },
+    a7c: { brand: 'SONY', body: 'A7C II', lens: '+ FE 28-70mm f/2', insight: 'Compact full-frame with class-leading AF. The 28-70mm f/2 is heavy but optically superb for low-light landscapes.', compat: 'All items compatible' },
+    r8:  { brand: 'CANON', body: 'EOS R8', lens: '+ RF 24-105mm f/4 L IS', insight: 'Versatile and lightweight. Great for beginners stepping into full-frame. The RF 24-105mm covers most shooting scenarios.', compat: 'All items compatible' },
+  };
+  document.querySelectorAll('.rec-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.rec-item').forEach(r => r.classList.remove('top'));
+      item.classList.add('top');
+      const d = recData[item.dataset.rec];
+      if (!d) return;
+      document.getElementById('brandLabel').textContent = d.brand;
+      document.getElementById('bodyLabel').textContent = d.body;
+      document.getElementById('lensLabel').textContent = d.lens;
+      document.getElementById('inlineAiText').textContent = d.insight;
+      document.getElementById('compatText').textContent = d.compat;
     });
   });
 
